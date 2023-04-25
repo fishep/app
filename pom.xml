@@ -14,6 +14,14 @@
     <groupId>com.fishep</groupId>
     <artifactId>app</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>common</module>
+        <module>server</module>
+        <module>client</module>
+        <module>user-server</module>
+        <module>user-client</module>
+        <module>user-common</module>
+    </modules>
     <packaging>pom</packaging>
 
     <properties>
@@ -85,6 +93,11 @@
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
 
         <!--        <dependency>-->

@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: user-server
+  datasource:
+    url: jdbc:mysql://mysql.docker.local:3306/user
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  data:
+    redis:
+      host: ${REDIS_HOST:redis.docker.local}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+      ssl: ${REDIS_SSL:false}
+      database: ${REDIS_DATABASE:1}
+server:
+  port: ${PORT:9010}
