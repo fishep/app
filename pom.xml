@@ -21,6 +21,7 @@
         <module>user-server</module>
         <module>user-client</module>
         <module>user-common</module>
+        <module>gateway</module>
     </modules>
     <packaging>pom</packaging>
 
