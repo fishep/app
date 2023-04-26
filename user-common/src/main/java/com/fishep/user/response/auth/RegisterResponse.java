@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RegisterResponse {
+    public String id;
 
-    public Boolean flag;
-
+    public String token;
 }

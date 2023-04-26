@@ -1,0 +1,57 @@
+{
+  "setting": {
+    "project": "app",
+    "saveRequestLog": false,
+    "enablePreRequestScript": true,
+    "enablePostRequestScript": true,
+    "preRequestScriptPath": "",
+    "postRequestScriptPath": "",
+    "preRequestScriptContent": "",
+    "postRequestScriptContent": "",
+    "requestTimeout": 0,
+    "generateMultilineCurlSnippet": false,
+    "supportForWslPath": false,
+    "downloadDirectory": ""
+  },
+  "environment": {
+    "project": "app",
+    "envList": [
+      {
+        "env": "DEV",
+        "items": [
+          {
+            "enabled": true,
+            "key": "baseUrl",
+            "value": "http://localhost:8080"
+          }
+        ]
+      },
+      {
+        "env": "USER_9010",
+        "items": [
+          {
+            "enabled": true,
+            "key": "baseUrl",
+            "value": "http://localhost:9010/api/user"
+          }
+        ]
+      },
+      {
+        "env": "USER_9011",
+        "items": [
+          {
+            "enabled": true,
+            "key": "baseUrl",
+            "value": "http://localhost:9011/api/user"
+          }
+        ]
+      }
+    ],
+    "globalHeaderList": [],
+    "script": null
+  },
+  "header": {
+    "project": "app",
+    "globalHeaderList": []
+  }
+}

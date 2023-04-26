@@ -7,6 +7,8 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.sql.SQLIntegrityConstraintViolationException;
+
 @RestControllerAdvice
 public class ExceptionHandler {
 
@@ -18,6 +20,11 @@ public class ExceptionHandler {
     @org.springframework.web.bind.annotation.ExceptionHandler({IllegalArgumentException.class})
     public Result appException(IllegalArgumentException e) {
         return Result.failure(e.getMessage());
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler({SQLIntegrityConstraintViolationException.class})
+    public Result appException(SQLIntegrityConstraintViolationException e) {
+        return Result.failure(e.getMessage(), null);
     }
 
     @org.springframework.web.bind.annotation.ExceptionHandler({BindException.class})
