@@ -33,6 +33,11 @@ public class TestRestController {
         return "hello api!";
     }
 
+    @GetMapping("/http/header")
+    public String header(@RequestHeader("App-User-Id") String userId, @RequestHeader("App-User-Name") String userName) {
+        return "App-User-Id: " + userId + "; App-User-Name: " + userName;
+    }
+
     @GetMapping("/validate")
     // 要求TestRequest 必须有 get set 方法，才能完成所有GET参数的映射
     public Result testRequest(@Validated TestRequest request) {

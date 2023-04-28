@@ -45,6 +45,46 @@
             "value": "http://localhost:9011/api/user"
           }
         ]
+      },
+      {
+        "env": "GATEWAY_9000",
+        "items": [
+          {
+            "enabled": true,
+            "key": "baseUrl",
+            "value": "http://localhost:9000"
+          }
+        ]
+      },
+      {
+        "env": "GATEWAY_9001",
+        "items": [
+          {
+            "enabled": true,
+            "key": "baseUrl",
+            "value": "http://localhost:9001"
+          }
+        ]
+      },
+      {
+        "env": "GATEWAY_USER_9000",
+        "items": [
+          {
+            "enabled": true,
+            "key": "baseUrl",
+            "value": "http://localhost:9000/api/user"
+          }
+        ]
+      },
+      {
+        "env": "GATEWAY_USER_9001",
+        "items": [
+          {
+            "enabled": true,
+            "key": "baseUrl",
+            "value": "http://localhost:9001/api/user"
+          }
+        ]
       }
     ],
     "globalHeaderList": [],
@@ -52,6 +92,22 @@
   },
   "header": {
     "project": "app",
-    "globalHeaderList": []
+    "globalHeaderList": [
+      {
+        "enabled": true,
+        "key": "Accept",
+        "value": "application/json, text/plain, */*"
+      },
+      {
+        "enabled": true,
+        "key": "Accept-Language",
+        "value": "zh-CN"
+      },
+      {
+        "enabled": true,
+        "key": "Authorization",
+        "value": "Bearer {{token}}"
+      }
+    ]
   }
 }

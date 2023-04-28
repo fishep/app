@@ -3,3 +3,12 @@ server:
 spring:
   application:
     name: gateway
+
+auth:
+  guest:
+    # 不能在登录的状态下访问,不需要登录认证的uri，正则表达式，多条规则 /api/user/auth/*,
+    routes: '/api/user/auth/register, /api/user/auth/login/.*'
+#    routes:
+#      - '/api/user/auth/register'
+#      - '/api/user/auth/login'
+#      - '/api/user/auth/*'

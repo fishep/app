@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
-@Component
-@Slf4j
+//@Component
+//@Slf4j
 public class AppGlobalFilter implements GlobalFilter, Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
@@ -20,7 +20,7 @@ public class AppGlobalFilter implements GlobalFilter, Ordered {
 //            log.info("CustomGlobalFilter key = val");
 //        }
 
-        log.info("AppGlobalFilter filter request");
+//        log.info("AppGlobalFilter filter request");
 
         return chain.filter(exchange);
     }

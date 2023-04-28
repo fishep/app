@@ -2,15 +2,17 @@ package com.fishep.common.type;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
-public class Result {
+public class Result<T> {
     private Integer code;
     private String message;
-    private Object data;
+    private T data;
 
-    public Result(StatusCode code, String message, Object data) {
+    public Result(StatusCode code, String message, T data) {
         this.code = code.getCode();
         this.message = message;
         this.data = data;
@@ -20,11 +22,11 @@ public class Result {
         return new Result(StatusCode.SUCCESS.getCode(), StatusCode.SUCCESS.getMessage(), null);
     }
 
-    public static Result success(Object data) {
+    public static <T> Result success(T data) {
         return new Result(StatusCode.SUCCESS.getCode(), StatusCode.SUCCESS.getMessage(), data);
     }
 
-    public static Result success(String message, Object data) {
+    public static <T> Result success(String message, T data) {
         return new Result(StatusCode.SUCCESS.getCode(), message, data);
     }
 
@@ -32,11 +34,11 @@ public class Result {
         return new Result(StatusCode.FAILURE.getCode(), StatusCode.FAILURE.getMessage(), null);
     }
 
-    public static Result failure(Object data) {
+    public static <T> Result failure(T data) {
         return new Result(StatusCode.FAILURE.getCode(), StatusCode.FAILURE.getMessage(), data);
     }
 
-    public static Result failure(String message, Object data) {
+    public static <T> Result failure(String message, T data) {
         return new Result(StatusCode.FAILURE.getCode(), message, data);
     }
 }

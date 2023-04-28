@@ -25,7 +25,7 @@ public class RegisterController {
     UserVOConverter userVOConverter;
 
     // 注册
-    @PostMapping("/")
+    @PostMapping("")
     public RegisterResponse register(@Validated @RequestBody RegisterRequest request) {
         if (!request.passwordConfirm()) {
             throw new ValidateException("Password inconsistency");
