@@ -23,6 +23,7 @@
         <module>user-common</module>
         <module>gateway</module>
         <module>permission-server</module>
+        <module>permission-client</module>
     </modules>
     <packaging>pom</packaging>
 

@@ -8,7 +8,7 @@ import org.springframework.context.annotation.ComponentScans;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@ComponentScans(@ComponentScan("com.fishep.user.client"))
+@ComponentScans(@ComponentScan({"com.fishep.user.client", "com.fishep.permission.client"}))
 public class GatewayMain {
     public static void main(String[] args) {
         SpringApplication.run(GatewayMain.class);

@@ -1,12 +1,12 @@
 package com.fishep.gateway.filter;
 
 import com.fishep.user.client.service.AuthService;
-import com.fishep.user.client.service.TestService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
+import org.springframework.core.Ordered;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
@@ -17,13 +17,10 @@ import java.util.stream.Stream;
 
 @Component
 @Slf4j
-public class AuthFilter implements GlobalFilter {
+public class AuthFilter implements GlobalFilter, Ordered {
 
     @Value("${auth.guest.routes}")
     private String[] guestRoutes;
-
-    @Autowired
-    private TestService testService;
 
     @Autowired
     private AuthService authService;
@@ -48,8 +45,6 @@ public class AuthFilter implements GlobalFilter {
             throw new RuntimeException("token is not exist, please login!");
         }
 
-        System.out.println("testService.api(): " + testService.api());
-
         Long id = authService.check(token);
 
         ServerHttpRequest.Builder builder = request.mutate();
@@ -59,5 +54,10 @@ public class AuthFilter implements GlobalFilter {
         System.out.println("App-User-Id: " + String.valueOf(id));
 
         return chain.filter(exchange.mutate().request(builder.build()).build());
+    }
+
+    @Override
+    public int getOrder() {
+        return 1;
     }
 }

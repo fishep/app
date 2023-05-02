@@ -4,6 +4,8 @@ import com.fishep.common.exception.AppException;
 import com.fishep.common.type.Result;
 import com.fishep.common.type.StatusCode;
 import com.fishep.server.annotation.CustomFormat;
+import com.fishep.server.annotation.Permission;
+import com.fishep.server.annotation.Permissions;
 import com.fishep.user.request.TestRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.annotation.Validated;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/test")
+@Permission("test.api.permission")
 public class TestRestController {
 
     @Value("${server.port}")
@@ -31,6 +34,12 @@ public class TestRestController {
     @GetMapping("/api/string")
     public String apiString() {
         return "hello api!";
+    }
+
+    @GetMapping("/api/permission")
+    @Permissions(values = {"test.api.permission1", "test.api.permission2"})
+    public String apiPermission() {
+        return "hello permission!";
     }
 
     @GetMapping("/http/header")
@@ -63,4 +72,5 @@ public class TestRestController {
     public Result testThrowException() {
         throw new AppException(StatusCode.FAILURE.getCode(), "something is worry!");
     }
+
 }

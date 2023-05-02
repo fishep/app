@@ -16,6 +16,7 @@ public enum StatusCode {
     RESPONSE_PACK_ERROR(1001, "response_pack_error"),
     CLASS_TYPE_ERROR(1002, "class_type_error"),
     ENTITY_NULL_ERROR(1003, "entity_null_error"),
+    PERMISSION_ERROR(1004, "permission_error"),
     // ...
     VALIDATE_ERROR(1100, "validate_error"),
     VALIDATE_EMAIL_ERROR(1101, "validate_email_error");
