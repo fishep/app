@@ -30,3 +30,7 @@ spring:
           uri: lb://user-server
           predicates:
             - Path=/api/user/**
+
+#feign:
+#  sentinel:
+#    enabled: true

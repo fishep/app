@@ -1,6 +1,7 @@
 package com.fishep.user.interfaces.controller.auth;
 
 import com.fishep.user.response.auth.TokenCheckResponse;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,8 +14,12 @@ import java.util.regex.Pattern;
 @RequestMapping("/auth")
 public class AuthController {
 
+    @Value("${server.port}")
+    private Integer port;
+
     @PostMapping("/token/check")
     public TokenCheckResponse check(@RequestHeader("Authorization") String authorization) {
+        System.out.println("AuthController.check(), server.port: " + port);
 
 //        @TODO 校验 token
         Pattern compile = Pattern.compile("Bearer\\sauthToken_(\\d+)");

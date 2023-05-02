@@ -2,6 +2,7 @@ package com.fishep.permission.interfaces.controller;
 
 import com.fishep.common.type.Result;
 import com.fishep.permission.interfaces.feign.TestFeign;
+import com.fishep.server.annotation.CustomFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,9 +26,10 @@ public class TestRestController {
     }
 
     @GetMapping("/feign")
-    public String feign() {
-        String s = testFeign.apiString();
-        System.out.println("testFeign.apiString(): " + s);
-        return s;
+    @CustomFormat
+    public Result feign() {
+        Result ret = testFeign.api();
+        System.out.println("testFeign.api(): " + ret);
+        return ret;
     }
 }
