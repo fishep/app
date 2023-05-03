@@ -6,6 +6,7 @@ import com.fishep.server.annotation.Permissions;
 import jakarta.servlet.http.HttpServletRequest;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -14,6 +15,7 @@ import java.util.Arrays;
 
 @Aspect
 @Component
+//@Profile("production")
 public class PermissionAspect {
 
     @Before("@annotation(permission)")

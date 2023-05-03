@@ -24,6 +24,7 @@
         <module>gateway</module>
         <module>permission-server</module>
         <module>permission-client</module>
+        <module>permission-common</module>
     </modules>
     <packaging>pom</packaging>
 

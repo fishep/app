@@ -30,6 +30,10 @@ spring:
           uri: lb://user-server
           predicates:
             - Path=/api/user/**
+        - id: permission.server
+          uri: lb://permission-server
+          predicates:
+            - Path=/api/permission/**
 
 #feign:
 #  sentinel:

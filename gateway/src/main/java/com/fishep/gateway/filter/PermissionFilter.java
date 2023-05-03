@@ -34,6 +34,7 @@ public class PermissionFilter implements GlobalFilter, Ordered {
 
         String[] userPermissions = permissionService.getUserPermissions(Long.valueOf(userId));
 
+        // @TODO 这个数据可能会有点大，通过请求头传递，并不是很好，考虑用其他的方式
         ServerHttpRequest.Builder builder = request.mutate();
         builder.header("App-User-Permissions", String.join(",", userPermissions));
 

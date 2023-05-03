@@ -8,7 +8,7 @@ import org.springframework.context.annotation.ComponentScans;
 
 @SpringBootApplication
 @EnableFeignClients
-@ComponentScans(@ComponentScan("com.fishep.server"))
+@ComponentScans(@ComponentScan({"com.fishep.server", "com.fishep.user.client"}))
 public class PermissionServer {
     public static void main(String[] args) {
         SpringApplication.run(PermissionServer.class);

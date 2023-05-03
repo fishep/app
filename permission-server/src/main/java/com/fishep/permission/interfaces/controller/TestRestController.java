@@ -1,8 +1,7 @@
 package com.fishep.permission.interfaces.controller;
 
 import com.fishep.common.type.Result;
-import com.fishep.permission.interfaces.feign.TestFeign;
-import com.fishep.server.annotation.CustomFormat;
+import com.fishep.user.client.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +16,7 @@ public class TestRestController {
     private Integer port;
 
     @Autowired
-    private TestFeign testFeign;
+    private TestService testService;
 
     @GetMapping("/api")
     public Result api() {
@@ -26,10 +25,16 @@ public class TestRestController {
     }
 
     @GetMapping("/feign")
-    @CustomFormat
-    public Result feign() {
-        Result ret = testFeign.api();
+    public String feign() {
+        String ret = testService.api();
         System.out.println("testFeign.api(): " + ret);
+        return ret;
+    }
+
+    @GetMapping("/feign/permission")
+    public String feignPermission() {
+        String ret = testService.apiPermission();
+        System.out.println("testFeign.apiPermission(): " + ret);
         return ret;
     }
 }

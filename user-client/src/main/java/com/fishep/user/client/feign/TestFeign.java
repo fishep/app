@@ -11,4 +11,7 @@ public interface TestFeign {
     @GetMapping("/api/user/test/api")
     Result api();
 
+    @GetMapping(value = "/api/user/test/api/permission", produces = "application/json;charset=utf-8")
+    Result<String> apiPermission();
+
 }

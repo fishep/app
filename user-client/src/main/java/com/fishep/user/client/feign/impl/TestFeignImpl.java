@@ -10,4 +10,9 @@ public class TestFeignImpl implements TestFeign {
     public Result api() {
         return Result.failure("service degradation, TestFeignImpl.api()");
     }
+
+    @Override
+    public Result<String> apiPermission() {
+        return Result.failure("service degradation, TestFeignImpl.apiPermission()");
+    }
 }
