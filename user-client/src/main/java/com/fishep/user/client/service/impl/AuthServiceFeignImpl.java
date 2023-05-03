@@ -19,6 +19,10 @@ public class AuthServiceFeignImpl implements AuthService {
 
     @Override
     public Long check(String token) {
+        /**
+         * @TODO 这里必须用异步，why？被gateway调用的必须要用异步？
+         * @TODO 有两个线程池会随机执行此处，why？ boundedElastic-5 reactor-http-nio-1
+         */
         CompletableFuture<Result<TokenCheckResponse>> future = CompletableFuture.supplyAsync(() -> authFeign.check(token));
         Result<TokenCheckResponse> result = null;
         try {

@@ -6,8 +6,6 @@ import com.fishep.user.client.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -38,16 +36,24 @@ public class TestServiceFeignImpl implements TestService {
 
     @Override
     public String apiPermission() {
+        // @TODO 如果使用异步，有多线程问题，取不到请求数据
         // @TODO 如果服务端有权限校验，则无法通过，怎么传递权限数据呢？ 从当前请求获取，在设置到到feign? 麻烦了点，有没有统一设置的
-        CompletableFuture<Result<String>> f = CompletableFuture.supplyAsync(() -> testFeign.apiPermission());
+//        CompletableFuture<Result<String>> f = CompletableFuture.supplyAsync(() -> testFeign.apiPermission());
+//
+//        Result<String> ret;
+//        try {
+//            ret = f.get();
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//        return ret.toString();
 
-        Result<String> ret;
-        try {
-            ret = f.get();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        Result<String> result = testFeign.apiPermission();
+        if (result == null || result.getData() == null || result.getData().isEmpty()) {
+            throw new RuntimeException(result.getMessage());
         }
 
-        return ret.toString();
+        return result.toString();
     }
 }
