@@ -20,3 +20,12 @@ spring:
       transport:
         port: 8859
         dashboard: localhost:8858
+
+#dubbo:
+#  #  scan:
+#  #    base-packages: com.fishep.order
+#  protocol:
+#    name: dubbo
+#    port: -1
+#  registry:
+#    address: spring-cloud://localhost:8848
