@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class FeignConfig {
 
     /**
-     * @TODO 在 web server 应用里不需要为Feign 创建bean, gateway 项目里必须要为Feign 创建bean, 不能自己装配吗，why？
+     * @TODO 在webserver应用里不需要为Feign创建bean, gateway项目里必须要为Feign创建bean, 不能自己装配吗，why？
      * @param converters
      * @return
      */

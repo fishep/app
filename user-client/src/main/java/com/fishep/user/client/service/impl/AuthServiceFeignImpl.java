@@ -37,4 +37,15 @@ public class AuthServiceFeignImpl implements AuthService {
 
         return result.getData().getUserId();
     }
+
+//    @Override
+//    public Long check(String token) {
+//        Result<TokenCheckResponse> result = authFeign.check(token);
+//
+//        if (result == null || result.getData() == null || result.getData().getFlag() == Boolean.FALSE || result.getData().getUserId() == null || result.getData().getUserId() <= 0) {
+//            throw new RuntimeException(result.getMessage());
+//        }
+//
+//        return result.getData().getUserId();
+//    }
 }

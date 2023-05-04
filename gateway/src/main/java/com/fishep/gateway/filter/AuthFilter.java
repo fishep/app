@@ -49,9 +49,6 @@ public class AuthFilter implements GlobalFilter, Ordered {
 
         ServerHttpRequest.Builder builder = request.mutate();
         builder.header("App-User-Id", String.valueOf(id));
-//        builder.header("App-User-Name", "test");
-
-        System.out.println("App-User-Id: " + String.valueOf(id));
 
         return chain.filter(exchange.mutate().request(builder.build()).build());
     }

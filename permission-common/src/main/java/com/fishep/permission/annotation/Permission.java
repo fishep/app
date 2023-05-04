@@ -1,4 +1,4 @@
-package com.fishep.server.annotation;
+package com.fishep.permission.annotation;
 
 import java.lang.annotation.*;
 
