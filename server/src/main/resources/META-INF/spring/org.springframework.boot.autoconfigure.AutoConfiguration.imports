@@ -1,2 +1,1 @@
-com.fishep.server.handler.ExceptionHandler
-com.fishep.server.handler.ResponseHandler
+com.fishep.server.config.ServerAutoConfiguration

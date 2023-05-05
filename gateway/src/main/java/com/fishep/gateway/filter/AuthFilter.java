@@ -41,12 +41,16 @@ public class AuthFilter implements GlobalFilter, Ordered {
             return chain.filter(exchange);
         }
 
+        String appUserId = request.getHeaders().getFirst("App-User-Id");
+        if (appUserId != null) {
+            throw new RuntimeException("Request header App-User-Id is prohibited from being used!");
+        }
+
         if (token == null) {
             throw new RuntimeException("token is not exist, please login!");
         }
 
         Long id = authService.check(token);
-
         ServerHttpRequest.Builder builder = request.mutate();
         builder.header("App-User-Id", String.valueOf(id));
 

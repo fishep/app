@@ -1,5 +1,6 @@
 package com.fishep.permission.aspect;
 
+import com.fishep.common.context.UserContext;
 import com.fishep.common.exception.PermissionException;
 import com.fishep.permission.annotation.Permission;
 import com.fishep.permission.annotation.Permissions;
@@ -65,7 +66,10 @@ public class PermissionAspect {
 
     private String[] userPermissions() {
 
-        // @TODO 怎么确定用户
+        // @TODO 根据用户id，获取用户权限
+
+        Long id = UserContext.getInstance().currentUser();
+
         return new String[]{"test.api.permission"};
 
 //        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();

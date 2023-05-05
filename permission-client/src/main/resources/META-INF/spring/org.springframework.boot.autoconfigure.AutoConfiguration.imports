@@ -1,1 +1,1 @@
-com.fishep.permission.client.service.impl.PermissionServiceFeignImpl
+com.fishep.permission.client.config.PermissionClientAutoConfiguration
