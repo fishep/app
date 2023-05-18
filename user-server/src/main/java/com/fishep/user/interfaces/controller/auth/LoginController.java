@@ -1,5 +1,6 @@
 package com.fishep.user.interfaces.controller.auth;
 
+import com.fishep.common.context.GuardContext;
 import com.fishep.user.application.dto.LoginDTO;
 import com.fishep.user.application.dto.UserDTO;
 import com.fishep.user.application.service.AuthCaseService;
@@ -29,6 +30,8 @@ public class LoginController {
     @PostMapping("/")
     public LoginResponse login(@Validated @RequestBody LoginRequest request) {
         System.out.println("login");
+
+        String guard = GuardContext.getCurrentGuard();
 
         LoginDTO loginDTO = new LoginDTO(request.getIdentity(), request.getToken());
 

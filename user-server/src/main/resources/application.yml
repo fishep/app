@@ -1,5 +1,5 @@
 server:
-  port: ${PORT:9010}
+  port: ${PORT:9020}
 spring:
   application:
     name: user-server
@@ -14,5 +14,5 @@ spring:
       port: ${REDIS_PORT:6379}
       password: ${REDIS_PASSWORD:}
       ssl: ${REDIS_SSL:false}
-      database: ${REDIS_DATABASE:1}
+      database: ${REDIS_DATABASE:2}
 

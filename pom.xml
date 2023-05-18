@@ -21,10 +21,13 @@
         <module>user-server</module>
         <module>user-client</module>
         <module>user-common</module>
-        <module>gateway</module>
+        <module>erp-gateway</module>
         <module>permission-server</module>
         <module>permission-client</module>
         <module>permission-common</module>
+        <module>oms-server</module>
+        <module>oms-client</module>
+        <module>oms-common</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -40,6 +43,7 @@
         <hibernate.validator.version>8.0.0.Final</hibernate.validator.version>
         <spring.boot.thin.layout.version>1.0.28.RELEASE</spring.boot.thin.layout.version>
         <mybatis.version>3.0.1</mybatis.version>
+        <springdoc.version>2.1.0</springdoc.version>
         <!-- dubbo 版本不兼容 -->
         <dubbo.version>2021.1</dubbo.version>
     </properties>
@@ -93,6 +97,11 @@
                 <artifactId>spring-cloud-starter-dubbo</artifactId>
                 <version>${dubbo.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+                <version>${springdoc.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -109,6 +118,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
         </dependency>
 
         <!--        <dependency>-->

@@ -27,27 +27,7 @@
         ]
       },
       {
-        "env": "USER_9010",
-        "items": [
-          {
-            "enabled": true,
-            "key": "baseUrl",
-            "value": "http://localhost:9010/api/user"
-          }
-        ]
-      },
-      {
-        "env": "USER_9011",
-        "items": [
-          {
-            "enabled": true,
-            "key": "baseUrl",
-            "value": "http://localhost:9011/api/user"
-          }
-        ]
-      },
-      {
-        "env": "GATEWAY_9000",
+        "env": "ERP_GATEWAY-9000",
         "items": [
           {
             "enabled": true,
@@ -57,7 +37,7 @@
         ]
       },
       {
-        "env": "GATEWAY_9001",
+        "env": "ERP_GATEWAY-9001",
         "items": [
           {
             "enabled": true,
@@ -67,7 +47,67 @@
         ]
       },
       {
-        "env": "GATEWAY_USER_9000",
+        "env": "USER_SERVER-9020",
+        "items": [
+          {
+            "enabled": true,
+            "key": "baseUrl",
+            "value": "http://localhost:9020/api/user"
+          }
+        ]
+      },
+      {
+        "env": "USER_SERVER-9021",
+        "items": [
+          {
+            "enabled": true,
+            "key": "baseUrl",
+            "value": "http://localhost:9021/api/user"
+          }
+        ]
+      },
+      {
+        "env": "PERMISSION_SERVER-9030",
+        "items": [
+          {
+            "enabled": true,
+            "key": "baseUrl",
+            "value": "http://localhost:9030/api/permission"
+          }
+        ]
+      },
+      {
+        "env": "PERMISSION_SERVER-9031",
+        "items": [
+          {
+            "enabled": true,
+            "key": "baseUrl",
+            "value": "http://localhost:9031/api/permission"
+          }
+        ]
+      },
+      {
+        "env": "OMS_SERVER-9070",
+        "items": [
+          {
+            "enabled": true,
+            "key": "baseUrl",
+            "value": "http://localhost:9070/api/oms"
+          }
+        ]
+      },
+      {
+        "env": "OMS_SERVER-9071",
+        "items": [
+          {
+            "enabled": true,
+            "key": "baseUrl",
+            "value": "http://localhost:9071/api/oms"
+          }
+        ]
+      },
+      {
+        "env": "ERP_GATEWAY-9000-USER_SERVER",
         "items": [
           {
             "enabled": true,
@@ -77,7 +117,7 @@
         ]
       },
       {
-        "env": "GATEWAY_USER_9001",
+        "env": "ERP_GATEWAY-9001-USER_SERVER",
         "items": [
           {
             "enabled": true,
@@ -87,27 +127,7 @@
         ]
       },
       {
-        "env": "PERMISSION_9020",
-        "items": [
-          {
-            "enabled": true,
-            "key": "baseUrl",
-            "value": "http://localhost:9020/api/permission"
-          }
-        ]
-      },
-      {
-        "env": "PERMISSION_9021",
-        "items": [
-          {
-            "enabled": true,
-            "key": "baseUrl",
-            "value": "http://localhost:9021/api/permission"
-          }
-        ]
-      },
-      {
-        "env": "GATEWAY_PERMISSION_9000",
+        "env": "ERP_GATEWAY-9000-PERMISSION_SERVER",
         "items": [
           {
             "enabled": true,
@@ -117,12 +137,32 @@
         ]
       },
       {
-        "env": "GATEWAY_PERMISSION_9001",
+        "env": "ERP_GATEWAY-9001-PERMISSION_SERVER",
         "items": [
           {
             "enabled": true,
             "key": "baseUrl",
             "value": "http://localhost:9001/api/permission"
+          }
+        ]
+      },
+      {
+        "env": "ERP_GATEWAY-9000-OMS_SERVER",
+        "items": [
+          {
+            "enabled": true,
+            "key": "baseUrl",
+            "value": "http://localhost:9000/api/oms"
+          }
+        ]
+      },
+      {
+        "env": "ERP_GATEWAY-9001-OMS_SERVER",
+        "items": [
+          {
+            "enabled": true,
+            "key": "baseUrl",
+            "value": "http://localhost:9001/api/oms"
           }
         ]
       }
@@ -147,6 +187,16 @@
         "enabled": true,
         "key": "Authorization",
         "value": "Bearer authToken_1"
+      },
+      {
+        "enabled": true,
+        "key": "App-Guard",
+        "value": "ERP"
+      },
+      {
+        "enabled": true,
+        "key": "App-User-Id",
+        "value": "1"
       }
     ]
   }

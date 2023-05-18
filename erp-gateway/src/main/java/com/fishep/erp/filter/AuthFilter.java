@@ -1,5 +1,6 @@
-package com.fishep.gateway.filter;
+package com.fishep.erp.filter;
 
+import com.fishep.common.type.Guard;
 import com.fishep.user.client.service.AuthService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +31,11 @@ public class AuthFilter implements GlobalFilter, Ordered {
         log.info("AuthFilter filter request");
 
         ServerHttpRequest request = exchange.getRequest();
+        HttpHeaders headers = request.getHeaders();
         String uri = request.getPath().value();
-        String token = request.getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
+        String token = headers.getFirst(HttpHeaders.AUTHORIZATION);
 
+        // 不能在登录状态下访问的路由
         boolean match = Stream.of(guestRoutes).anyMatch(routeRegex -> uri.matches(routeRegex));
         if (match) {
             if (token != null) {
@@ -41,17 +44,13 @@ public class AuthFilter implements GlobalFilter, Ordered {
             return chain.filter(exchange);
         }
 
-        String appUserId = request.getHeaders().getFirst("App-User-Id");
-        if (appUserId != null) {
-            throw new RuntimeException("Request header App-User-Id is prohibited from being used!");
-        }
-
+        // 在登录的状态下，进行验证转发
         if (token == null) {
             throw new RuntimeException("token is not exist, please login!");
         }
 
-        Long id = authService.check(token);
         ServerHttpRequest.Builder builder = request.mutate();
+        Long id = authService.check(Guard.ERP.toString(), token);
         builder.header("App-User-Id", String.valueOf(id));
 
         return chain.filter(exchange.mutate().request(builder.build()).build());

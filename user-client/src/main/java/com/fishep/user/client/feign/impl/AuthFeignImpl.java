@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class AuthFeignImpl implements AuthFeign {
     @Override
-    public Result<TokenCheckResponse> check(String authorization) {
-        return Result.failure("service degradation, AuthFeignImpl.check(String authorization), authorization: " + authorization, null);
+    public Result<TokenCheckResponse> check(String guard, String authorization) {
+        return Result.failure("service degradation, AuthFeignImpl.check(String guard, String authorization), guard: " + guard + ", authorization: " + authorization, null);
     }
 }

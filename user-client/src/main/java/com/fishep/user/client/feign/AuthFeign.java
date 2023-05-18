@@ -11,6 +11,6 @@ import org.springframework.web.bind.annotation.RequestHeader;
 public interface AuthFeign {
 
     @PostMapping("/api/user/auth/token/check")
-    Result<TokenCheckResponse> check(@RequestHeader("Authorization") String authorization);
+    Result<TokenCheckResponse> check(@RequestHeader("App-Guard") String guard, @RequestHeader("Authorization") String authorization);
 
 }

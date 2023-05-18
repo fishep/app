@@ -12,32 +12,48 @@ public class UserContext implements AutoCloseable {
     private UserContext() {
     }
 
-    public void setUser(String id){
-        if (ctx.get() != null){
+    public void setUser(String id) {
+        if (ctx.get() != null) {
             throw new RuntimeException("UserContext repeat setup");
         }
 
         ctx.set(Long.valueOf(id));
     }
 
-    public void setUser(Long id){
-        if (ctx.get() != null){
+    public void setUser(Long id) {
+        if (ctx.get() != null) {
             throw new RuntimeException("UserContext repeat setup");
         }
 
         ctx.set(id);
     }
 
-    public Long currentUser() {
+    public Long getUser() {
         return ctx.get();
+    }
+
+    @Override
+    public void close() throws Exception {
+        ctx.remove();
+    }
+
+    public static void setCurrentUser(String id) {
+        instance.setUser(id);
+    }
+
+    public static void setCurrentUser(Long id) {
+        instance.setUser(id);
+    }
+
+    public static Long getCurrentUser() {
+        return instance.getUser();
     }
 
     public static UserContext getInstance() {
         return instance;
     }
 
-    @Override
-    public void close() throws Exception {
-        ctx.remove();
+    public static void closeUserContext() throws Exception {
+        instance.close();
     }
 }

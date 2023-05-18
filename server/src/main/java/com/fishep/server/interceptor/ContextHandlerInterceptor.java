@@ -1,6 +1,8 @@
 package com.fishep.server.interceptor;
 
+import com.fishep.common.context.GuardContext;
 import com.fishep.common.context.UserContext;
+import com.fishep.common.exception.ServiceException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
@@ -8,12 +10,18 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 @Component
-public class UserContextInterceptor implements HandlerInterceptor {
+public class ContextHandlerInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        String guard = request.getHeader("App-Guard");
+        if (guard == null || guard.isEmpty()){
+            throw new ServiceException("ContextHandlerInterceptor App-Guard is empty");
+        }
+        GuardContext.setCurrentGuard(guard);
+
         String userId = request.getHeader("App-User-Id");
-        if (userId != null){
-            UserContext.getInstance().setUser(userId);
+        if (userId != null && !userId.isEmpty()){
+            UserContext.setCurrentUser(userId);
         }
 
         return HandlerInterceptor.super.preHandle(request, response, handler);
@@ -27,7 +35,8 @@ public class UserContextInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
 
-        UserContext.getInstance().close();
+        UserContext.closeUserContext();
+        GuardContext.closeGuardContext();
 
         HandlerInterceptor.super.afterCompletion(request, response, handler, ex);
     }

@@ -1,5 +1,5 @@
 server:
-  port: ${PORT:9020}
+  port: ${PORT:9030}
 spring:
   application:
     name: permission-server

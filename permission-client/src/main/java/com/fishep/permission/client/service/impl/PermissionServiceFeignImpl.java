@@ -10,7 +10,7 @@ public class PermissionServiceFeignImpl implements PermissionService {
 
 //        @TODO
         String[] permissions = new String[1];
-        permissions[0] = "test.api.permission";
+        permissions[0] = "user.test.api.permission.apiPermission";
         return permissions;
     }
 }

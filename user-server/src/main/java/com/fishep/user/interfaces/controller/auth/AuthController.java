@@ -18,7 +18,7 @@ public class AuthController {
     private Integer port;
 
     @PostMapping("/token/check")
-    public TokenCheckResponse check(@RequestHeader("Authorization") String authorization) {
+    public TokenCheckResponse check(@RequestHeader("App-Guard") String guard, @RequestHeader("Authorization") String authorization) {
         System.out.println("AuthController.check(), server.port: " + port);
 
 //        @TODO 校验 token

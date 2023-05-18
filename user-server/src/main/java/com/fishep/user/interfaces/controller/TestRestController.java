@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/test")
-//@Permission("test.api.permission")
+//@Permission("user.test")
 public class TestRestController {
 
     @Value("${server.port}")
@@ -37,20 +37,20 @@ public class TestRestController {
     }
 
     @GetMapping("/api/permission")
-    @Permission("test.api.permission")
+    @Permission("user.test.api.permission.apiPermission")
     public String apiPermission() {
         return "hello permission!";
     }
 
     @GetMapping("/api/permission/array")
-    @Permission("test.api.permission1")
-    @Permission("test.api.permission2")
+    @Permission("user.test.api.permission.array.apiPermissionArray.1")
+    @Permission("user.test.api.permission.array.apiPermissionArray.2")
     public String apiPermissionArray() {
         return "hello permission array!";
     }
 
     @GetMapping("/api/permissions")
-    @Permissions(values = {"test.api.permission1", "test.api.permission2"})
+    @Permissions(values = {"user.test.api.permissions.1", "user.test.api.permissions.2"})
     public String apiPermissions() {
         return "hello permissions !";
     }

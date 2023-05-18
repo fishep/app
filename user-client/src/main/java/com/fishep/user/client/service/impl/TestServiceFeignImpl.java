@@ -18,29 +18,10 @@ public class TestServiceFeignImpl implements TestService {
 
     @Override
     public String api() {
-        /**
-         * @TODO 这里必须用异步，why？
-         * @TODO 有两个线程池会随机执行此处，why？ boundedElastic-5 reactor-http-nio-1
-         */
-        CompletableFuture<Result> f = CompletableFuture.supplyAsync(() -> testFeign.api());
-
-        Result ret;
-        try {
-            ret = f.get();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-        return ret.toString();
-    }
-
-    @Override
-    public String apiPermission() {
-        // @TODO 如果使用异步，有多线程问题，取不到请求数据
-        // @TODO 如果服务端有权限校验，则无法通过，怎么传递权限数据呢？ 从当前请求获取，在设置到到feign? 麻烦了点，有没有统一设置的
-//        CompletableFuture<Result<String>> f = CompletableFuture.supplyAsync(() -> testFeign.apiPermission());
+        // @TODO 如果使用异步，有多线程问题，取不到请求数据， 怎么传递全局数据呢？
+//        CompletableFuture<Result> f = CompletableFuture.supplyAsync(() -> testFeign.api());
 //
-//        Result<String> ret;
+//        Result ret;
 //        try {
 //            ret = f.get();
 //        } catch (Exception e) {
@@ -49,6 +30,13 @@ public class TestServiceFeignImpl implements TestService {
 //
 //        return ret.toString();
 
+        Result<String> result = testFeign.api();
+
+        return result.toString();
+    }
+
+    @Override
+    public String apiPermission() {
         Result<String> result = testFeign.apiPermission();
         if (result == null || result.getData() == null || result.getData().isEmpty()) {
             throw new RuntimeException(result.getMessage());
