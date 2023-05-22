@@ -1,4 +1,4 @@
-package com.fishep.erp.filter;
+package com.fishep.shop.filter;
 
 import com.fishep.common.type.Guard;
 import com.fishep.user.client.service.AuthService;
@@ -20,8 +20,11 @@ import java.util.stream.Stream;
 @Slf4j
 public class AuthFilter implements GlobalFilter, Ordered {
 
-    @Value("${erp.route.un-auth}")
+    @Value("${shop.route.un-auth}")
     private String[] unAuthRoutes;
+
+    @Value("${shop.route.auth}")
+    private String[] authRoutes;
 
     @Autowired
     private AuthService authService;
@@ -44,13 +47,18 @@ public class AuthFilter implements GlobalFilter, Ordered {
         }
 
         // 必须在登录的状态下访问的路由
-        if (token == null || token.isEmpty()) {
-            throw new RuntimeException("token is not exist, please login!");
+        if (Stream.of(authRoutes).anyMatch(routeRegex -> uri.matches(routeRegex))) {
+            if (token == null || token.isEmpty()) {
+                throw new RuntimeException("token is not exist, please login!");
+            }
         }
 
+        // 登录或者不登录都可以访问
         ServerHttpRequest.Builder builder = request.mutate();
-        Long id = authService.check(Guard.ERP.toString(), token);
-        builder.header("App-User-Id", String.valueOf(id));
+        if (token != null && !token.isEmpty()) {
+            Long id = authService.check(Guard.SHOP.toString(), token);
+            builder.header("App-User-Id", String.valueOf(id));
+        }
 
         return chain.filter(exchange.mutate().request(builder.build()).build());
     }

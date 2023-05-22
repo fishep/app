@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Date 2023/5/8 18:30
  * @Desc
  **/
-//@Guard({"SHOP", "APP"})
+//@Guard({"SHOP", "OPEN"})
 @ErpGuard
 @RestController
 @RequestMapping("/order")
@@ -26,7 +26,7 @@ public class OrderController {
     @PostMapping("/orders")
     @Permission("oms.order.orders.create")
     @Operation(summary = "create order")
-//    @Guard({"SHOP", "APP"})
+//    @Guard({"SHOP", "OPEN"})
 //    @ErpGuard
     public String create(@Parameter(description = "order description") String desc) {
 

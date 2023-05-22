@@ -22,12 +22,14 @@
         <module>user-client</module>
         <module>user-common</module>
         <module>erp-gateway</module>
+        <module>shop-gateway</module>
         <module>permission-server</module>
         <module>permission-client</module>
         <module>permission-common</module>
         <module>oms-server</module>
         <module>oms-client</module>
         <module>oms-common</module>
+        <module>open-gateway</module>
     </modules>
     <packaging>pom</packaging>
 

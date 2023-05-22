@@ -5,7 +5,7 @@
   - erp-gateway        后台网关            port: 9000 - 9001
   - shop-gateway       商城网关            port: 9002 - 9003
   - -gateway           其他网关            port: 9004 - 9007
-  - app-gateway        应用网关（第三方应用） port: 9008 - 9009
+  - open-gateway       开放网关（第三方应用） port: 9008 - 9009
 
 - common               公共模块         port: 
 - server               公共模块         port: 

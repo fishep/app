@@ -1,0 +1,5 @@
+server:
+  port: ${PORT:9008}
+spring:
+  application:
+    name: open-gateway

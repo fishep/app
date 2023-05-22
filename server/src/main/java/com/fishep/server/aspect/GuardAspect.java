@@ -2,7 +2,7 @@ package com.fishep.server.aspect;
 
 import com.fishep.common.context.GuardContext;
 import com.fishep.common.exception.ServiceException;
-import com.fishep.server.annotation.AppGuard;
+import com.fishep.server.annotation.OpenGuard;
 import com.fishep.server.annotation.ErpGuard;
 import com.fishep.server.annotation.Guard;
 import com.fishep.server.annotation.ShopGuard;
@@ -68,17 +68,17 @@ public class GuardAspect {
         }
     }
 
-    @Before("@annotation(appGuard)")
-    public void methodAppGuard(AppGuard appGuard){
-        String eg = com.fishep.common.type.Guard.APP.toString();
+    @Before("@annotation(openGuard)")
+    public void methodOpenGuard(OpenGuard openGuard){
+        String eg = com.fishep.common.type.Guard.OPEN.toString();
         if (!eg.equals(GuardContext.getCurrentGuard())){
             throw new ServiceException("GuardAspect Exception, The allowed contexts are " + eg + ", but current is " + GuardContext.getCurrentGuard());
         }
     }
 
-    @Before("@within(appGuard)")
-    public void classAppGuard(AppGuard appGuard){
-        String eg = com.fishep.common.type.Guard.APP.toString();
+    @Before("@within(openGuard)")
+    public void classOpenGuard(OpenGuard openGuard){
+        String eg = com.fishep.common.type.Guard.OPEN.toString();
         if (!eg.equals(GuardContext.getCurrentGuard())){
             throw new ServiceException("GuardAspect Exception, The allowed contexts are " + eg + ", but current is " + GuardContext.getCurrentGuard());
         }

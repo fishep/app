@@ -1,11 +1,13 @@
 server:
-  port: ${PORT:9000}
+  port: ${PORT:9002}
 spring:
   application:
-    name: erp-gateway
+    name: shop-gateway
 
-erp:
+shop:
   # uri正则表达式, 多条规则, 规则之间用逗号隔开, example: '/api/user/auth/register, /api/user/auth/login/.*'
   route:
     # 不能在登录的状态下访问的路由
     un-auth: '/api/user/auth/register, /api/user/auth/login/.*'
+    # 必须在登录的状态下访问的路由
+    auth: '/api/user/home'

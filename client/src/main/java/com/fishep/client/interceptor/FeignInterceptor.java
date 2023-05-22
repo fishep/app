@@ -28,6 +28,6 @@ public class FeignInterceptor implements RequestInterceptor {
         requestTemplate.header("App-Guard", guard);
         requestTemplate.header("App-User-Id", id == null ? null : String.valueOf(id));
         requestTemplate.header("Accept", "application/json, text/plain, */*");
-        requestTemplate.header("Accept-Language", "zh-CN");
+//        requestTemplate.header("Accept-Language", "zh-CN");
     }
 }
