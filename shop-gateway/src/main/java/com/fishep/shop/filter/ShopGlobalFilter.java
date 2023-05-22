@@ -37,7 +37,7 @@ public class ShopGlobalFilter implements GlobalFilter, Ordered {
 
         // 设置全局请求头
         ServerHttpRequest.Builder builder = request.mutate();
-        builder.header("App-Guard", Guard.ERP.toString());
+        builder.header("App-Guard", Guard.SHOP.toString());
         builder.header("App-User-Id", "");
 
         return chain.filter(exchange.mutate().request(builder.build()).build());

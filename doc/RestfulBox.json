@@ -47,6 +47,26 @@
         ]
       },
       {
+        "env": "SHOP_GATEWAY-9002",
+        "items": [
+          {
+            "enabled": true,
+            "key": "baseUrl",
+            "value": "http://localhost:9002"
+          }
+        ]
+      },
+      {
+        "env": "OPEN_GATEWAY-9008",
+        "items": [
+          {
+            "enabled": true,
+            "key": "baseUrl",
+            "value": "http://localhost:9008"
+          }
+        ]
+      },
+      {
         "env": "USER_SERVER-9020",
         "items": [
           {
