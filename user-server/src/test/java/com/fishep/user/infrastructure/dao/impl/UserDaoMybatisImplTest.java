@@ -1,5 +1,6 @@
 package com.fishep.user.infrastructure.dao.impl;
 
+import com.fishep.user.type.UserType;
 import com.fishep.user.infrastructure.dao.UserDao;
 import com.fishep.user.infrastructure.data.UserDO;
 import com.fishep.user.infrastructure.mapper.UserMapper;
@@ -31,9 +32,11 @@ class UserDaoMybatisImplTest {
     @BeforeEach
     public void setUp() {
         userDO = new UserDO();
+        userDO.setType(UserType.ADMIN.toString());
         userDO.setId(2l);
         userDO.setName("zhangsan");
         userDO.setEmail("zhangsan@email.com");
+        userDO.setPhoneNumber("16888888811");
         userDO.setPassword("********");
         userDO.setCreatedAt(Instant.now().toEpochMilli());
         userDO.setUpdatedAt(Instant.now().toEpochMilli());

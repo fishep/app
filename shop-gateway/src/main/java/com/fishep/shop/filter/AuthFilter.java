@@ -2,6 +2,7 @@ package com.fishep.shop.filter;
 
 import com.fishep.common.type.Guard;
 import com.fishep.user.client.service.AuthService;
+import com.fishep.user.response.auth.TokenCheckResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -56,8 +57,10 @@ public class AuthFilter implements GlobalFilter, Ordered {
         // 登录或者不登录都可以访问
         ServerHttpRequest.Builder builder = request.mutate();
         if (token != null && !token.isEmpty()) {
-            Long id = authService.check(Guard.SHOP.toString(), token);
-            builder.header("App-User-Id", String.valueOf(id));
+            TokenCheckResponse check = authService.check(Guard.SHOP.toString(), token);
+            builder.header("App-User-Type", check.getUserType());
+            builder.header("App-User-Id", String.valueOf(check.getUserId()));
+            builder.header("App-User-Name", check.getUserName());
         }
 
         return chain.filter(exchange.mutate().request(builder.build()).build());

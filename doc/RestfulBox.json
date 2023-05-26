@@ -185,6 +185,46 @@
             "value": "http://localhost:9001/api/oms"
           }
         ]
+      },
+      {
+        "env": "SHOP_GATEWAY-9002-USER_SERVER",
+        "items": [
+          {
+            "enabled": true,
+            "key": "baseUrl",
+            "value": "http://localhost:9002/api/user"
+          }
+        ]
+      },
+      {
+        "env": "SHOP_GATEWAY-9003-USER_SERVER",
+        "items": [
+          {
+            "enabled": true,
+            "key": "baseUrl",
+            "value": "http://localhost:9003/api/user"
+          }
+        ]
+      },
+      {
+        "env": "SHOP_GATEWAY-9002-OMS_SERVER",
+        "items": [
+          {
+            "enabled": true,
+            "key": "baseUrl",
+            "value": "http://localhost:9002/api/oms"
+          }
+        ]
+      },
+      {
+        "env": "SHOP_GATEWAY-9003-OMS_SERVER",
+        "items": [
+          {
+            "enabled": true,
+            "key": "baseUrl",
+            "value": "http://localhost:9003/api/oms"
+          }
+        ]
       }
     ],
     "globalHeaderList": [],
@@ -206,7 +246,7 @@
       {
         "enabled": true,
         "key": "Authorization",
-        "value": "Bearer authToken_1"
+        "value": "Bearer ver:1 guard:ERP type:ADMIN id:1 name:test"
       },
       {
         "enabled": true,
@@ -215,8 +255,18 @@
       },
       {
         "enabled": true,
+        "key": "App-User-Type",
+        "value": "ADMIN"
+      },
+      {
+        "enabled": true,
         "key": "App-User-Id",
         "value": "1"
+      },
+      {
+        "enabled": true,
+        "key": "App-User-Name",
+        "value": "test"
       }
     ]
   }

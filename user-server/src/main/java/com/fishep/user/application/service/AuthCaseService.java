@@ -6,11 +6,17 @@ import com.fishep.user.application.dto.RegisterDTO;
 
 public interface AuthCaseService {
 
+    @Deprecated
     UserDTO login(LoginDTO loginDTO);
 
-//    UserDTO loginBindSession(LoginDTO loginDTO);
-
-//    UserDTO loginBindJwt(LoginDTO loginDTO);
-
+    @Deprecated
     UserDTO register(RegisterDTO registerDTO);
+
+    UserDTO adminLoginErp(LoginDTO loginDTO);
+
+    UserDTO adminLoginShop(LoginDTO loginDTO);
+
+    UserDTO customerLoginShop(LoginDTO loginDTO);
+
+    UserDTO customerRegisterShop(RegisterDTO registerDTO);
 }

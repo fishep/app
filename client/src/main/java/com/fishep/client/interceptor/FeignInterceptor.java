@@ -2,6 +2,7 @@ package com.fishep.client.interceptor;
 
 import com.fishep.common.context.GuardContext;
 import com.fishep.common.context.UserContext;
+import com.fishep.common.type.Guard;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import org.springframework.stereotype.Component;
@@ -23,10 +24,12 @@ public class FeignInterceptor implements RequestInterceptor {
 //            requestTemplate.header(name, value);
 //        }
 
-        Long id = UserContext.getCurrentUser();
-        String guard = GuardContext.getCurrentGuard();
-        requestTemplate.header("App-Guard", guard);
-        requestTemplate.header("App-User-Id", id == null ? null : String.valueOf(id));
+        UserContext.User user = UserContext.getCurrentUser();
+        Guard guard = GuardContext.getCurrentGuard();
+        requestTemplate.header("App-Guard", guard == null ? null : guard.toString());
+        requestTemplate.header("App-User-Type", user == null ? null : user.getType());
+        requestTemplate.header("App-User-Id", user == null ? null : String.valueOf(user.getId()));
+        requestTemplate.header("App-User-Name", user == null ? null : user.getName());
         requestTemplate.header("Accept", "application/json, text/plain, */*");
 //        requestTemplate.header("Accept-Language", "zh-CN");
     }

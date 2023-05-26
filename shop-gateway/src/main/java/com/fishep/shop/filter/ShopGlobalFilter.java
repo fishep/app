@@ -31,14 +31,19 @@ public class ShopGlobalFilter implements GlobalFilter, Ordered {
         if (headers.getFirst("App-Guard") != null) {
             throw new RuntimeException("Request header App-Guard is prohibited from being used!");
         }
+        if (headers.getFirst("App-User-Type") != null) {
+            throw new RuntimeException("Request header App-User-Type is prohibited from being used!");
+        }
         if (headers.getFirst("App-User-Id") != null) {
             throw new RuntimeException("Request header App-User-Id is prohibited from being used!");
+        }
+        if (headers.getFirst("App-User-Name") != null) {
+            throw new RuntimeException("Request header App-User-Name is prohibited from being used!");
         }
 
         // 设置全局请求头
         ServerHttpRequest.Builder builder = request.mutate();
         builder.header("App-Guard", Guard.SHOP.toString());
-        builder.header("App-User-Id", "");
 
         return chain.filter(exchange.mutate().request(builder.build()).build());
     }

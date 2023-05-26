@@ -7,6 +7,7 @@ import com.fishep.user.application.assembler.TokenDTOAssembler;
 import com.fishep.user.application.assembler.UserDTOAssembler;
 import com.fishep.user.application.dto.LoginDTO;
 import com.fishep.user.application.service.AuthCaseService;
+import com.fishep.user.domain.entity.Admin;
 import com.fishep.user.domain.entity.Code;
 import com.fishep.user.domain.entity.Password;
 import com.fishep.user.domain.entity.User;
@@ -16,6 +17,7 @@ import com.fishep.user.domain.service.AuthService;
 import com.fishep.user.domain.service.impl.AuthServiceImpl;
 import com.fishep.user.type.UserId;
 import com.fishep.user.type.UserName;
+import com.fishep.user.type.UserType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -59,13 +61,18 @@ class AuthCaseServiceImplTest {
         ReflectionTestUtils.setField(userDTOAssembler, "userRepository", userRepository);
         ReflectionTestUtils.setField(userDTOAssembler, "tokenRepository", tokenRepository);
 
-        User user = new User(new UserId(1l), new UserName("fly"), new Email("fly@test"), Instant.now(), Instant.now());
+        User user = new Admin(new UserId(1l), new UserName("fly"));
+        user.setEmail(new Email("fly@test"));
+        user.setPhoneNumber(new PhoneNumber("17000000000"));
+        user.setCreatedAt(Instant.now());
+        user.setUpdatedAt(Instant.now());
+
         Password password = new Password("12345678");
         Code code = new Code("1234");
 
-        when(userRepository.find(any(UserName.class))).thenReturn(user);
-        when(userRepository.find(any(Email.class))).thenReturn(user);
-        when(userRepository.find(any(PhoneNumber.class))).thenReturn(user);
+        when(userRepository.find(any(UserType.class), any(UserName.class))).thenReturn(user);
+        when(userRepository.find(any(UserType.class), any(Email.class))).thenReturn(user);
+        when(userRepository.find(any(UserType.class), any(PhoneNumber.class))).thenReturn(user);
 
         when(tokenRepository.findPassword(any())).thenReturn(password);
         when(tokenRepository.findCode(any())).thenReturn(code);
@@ -74,23 +81,23 @@ class AuthCaseServiceImplTest {
     @Test
     void login() {
         // login by password
-        assertNotNull(authCaseService.login(new LoginDTO("fly", "12345678")));
-        assertThrows(ServiceException.class, ()->{authCaseService.login(new LoginDTO("fly", "12345678888"));});
+        assertNotNull(authCaseService.adminLoginErp(new LoginDTO("fly", "12345678")));
+        assertThrows(ServiceException.class, ()->{authCaseService.adminLoginErp(new LoginDTO("fly", "12345678888"));});
 
-        assertNotNull(authCaseService.login(new LoginDTO("fly@test", "12345678")));
-        assertThrows(ServiceException.class, ()->{authCaseService.login(new LoginDTO("fly@test", "12345678888"));});
+        assertNotNull(authCaseService.adminLoginErp(new LoginDTO("fly@test", "12345678")));
+        assertThrows(ServiceException.class, ()->{authCaseService.adminLoginErp(new LoginDTO("fly@test", "12345678888"));});
 
-        assertNotNull(authCaseService.login(new LoginDTO("17000000000", "12345678")));
-        assertThrows(ServiceException.class, ()->{authCaseService.login(new LoginDTO("17000000000", "12345678888"));});
+        assertNotNull(authCaseService.adminLoginErp(new LoginDTO("17000000000", "12345678")));
+        assertThrows(ServiceException.class, ()->{authCaseService.adminLoginErp(new LoginDTO("17000000000", "12345678888"));});
 
         // login by code
-        assertNotNull(authCaseService.login(new LoginDTO("fly", "1234")));
-        assertThrows(ServiceException.class, ()->{authCaseService.login(new LoginDTO("fly", "4321"));});
+        assertNotNull(authCaseService.adminLoginErp(new LoginDTO("fly", "1234")));
+        assertThrows(ServiceException.class, ()->{authCaseService.adminLoginErp(new LoginDTO("fly", "4321"));});
 
-        assertNotNull(authCaseService.login(new LoginDTO("fly@test", "1234")));
-        assertThrows(ServiceException.class, ()->{authCaseService.login(new LoginDTO("fly@test", "4321"));});
+        assertNotNull(authCaseService.adminLoginErp(new LoginDTO("fly@test", "1234")));
+        assertThrows(ServiceException.class, ()->{authCaseService.adminLoginErp(new LoginDTO("fly@test", "4321"));});
 
-        assertNotNull(authCaseService.login(new LoginDTO("17000000000", "1234")));
-        assertThrows(ServiceException.class, ()->{authCaseService.login(new LoginDTO("17000000000", "4321"));});
+        assertNotNull(authCaseService.adminLoginErp(new LoginDTO("17000000000", "1234")));
+        assertThrows(ServiceException.class, ()->{authCaseService.adminLoginErp(new LoginDTO("17000000000", "4321"));});
     }
 }

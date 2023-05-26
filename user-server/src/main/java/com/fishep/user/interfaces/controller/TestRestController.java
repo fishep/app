@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+@Deprecated
 @RestController
 @RequestMapping("/test")
 //@Permission("user.test")

@@ -1,5 +1,7 @@
 package com.fishep.server.annotation;
 
+import com.fishep.common.type.Guard;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -16,6 +18,6 @@ import java.lang.annotation.Target;
 
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Guard {
-    String[] value() default {};
+public @interface MultiGuard {
+    Guard[] value() default {};
 }

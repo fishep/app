@@ -2,6 +2,7 @@ package com.fishep.user.interfaces.controller.auth;
 
 import net.minidev.json.JSONObject;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -17,92 +18,94 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @Author Fly.Fei
+ * @Date 2023/5/26 11:21
+ * @Desc
+ **/
 @SpringBootTest
 @AutoConfigureMockMvc
-class LoginControllerTest {
+class ErpLoginControllerTest {
 
-    private String loginUri = "/api/user/auth/login/";
-    private String passwordLoginUri = "/api/user/auth/login/passwordLogin";
-    private String codeLoginUri = "/api/user/auth/login/codeLogin";
+    private String loginUri = "/api/user/auth/erp/login/admin";
 
     @Autowired
     private MockMvc mockMvc;
 
-    @Test
-    void login() throws Exception {
+    private String requestJson1;
+    private String requestJson2;
+
+    @BeforeEach
+    public void setUp() {
         Map<String, String> request = new HashMap<>();
         request.put("identity", "test");
         request.put("token", "12345678");
-        String requestJson = JSONObject.toJSONString(request);
 
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
-                .post(loginUri)
-                .content(requestJson)
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON);
+        requestJson1 = JSONObject.toJSONString(request);
 
-        ResultActions response = mockMvc.perform(requestBuilder);
-        response.andExpect(MockMvcResultMatchers.status().isOk());
-        response.andExpect(MockMvcResultMatchers.jsonPath("$.code", Matchers.is(200)));
-        response.andExpect(MockMvcResultMatchers.jsonPath("$.data", Matchers.notNullValue()));
-
-        response.andDo(MockMvcResultHandlers.print());
-    }
-
-    @Test
-    void loginFail() throws Exception {
-        Map<String, String> request = new HashMap<>();
-        request.put("identity", "test");
-        request.put("token", "123456789");
-        String requestJson = JSONObject.toJSONString(request);
-
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
-                .post(loginUri)
-                .content(requestJson)
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON);
-
-        ResultActions response = mockMvc.perform(requestBuilder);
-        response.andExpect(MockMvcResultMatchers.status().isOk());
-        response.andExpect(MockMvcResultMatchers.jsonPath("$.code", Matchers.is(1000)));
-        response.andExpect(MockMvcResultMatchers.jsonPath("$.data", Matchers.nullValue()));
-
-        response.andDo(MockMvcResultHandlers.print());
-    }
-
-    @Test
-    void passwordLogin() throws Exception {
-        Map<String, String> request = new HashMap<>();
-        request.put("identity", "test");
-        request.put("token", "12345678");
-        String requestJson = JSONObject.toJSONString(request);
-
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
-                .post(passwordLoginUri)
-                .content(requestJson)
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON);
-
-        ResultActions response = mockMvc.perform(requestBuilder);
-        response.andExpect(MockMvcResultMatchers.status().isOk());
-        response.andExpect(MockMvcResultMatchers.jsonPath("$.code", Matchers.is(200)));
-        response.andExpect(MockMvcResultMatchers.jsonPath("$.data", Matchers.notNullValue()));
-
-        response.andDo(MockMvcResultHandlers.print());
-    }
-
-    @Test
-    void codeLogin() throws Exception {
-        Map<String, String> request = new HashMap<>();
-        request.put("identity", "test");
         request.put("token", "1234");
-        String requestJson = JSONObject.toJSONString(request);
+        requestJson2 = JSONObject.toJSONString(request);
+    }
 
+    @Test
+    void adminLoginErpByToken1() throws Exception {
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
-                .post(codeLoginUri)
-                .content(requestJson)
+                .post(loginUri + "/token")
+                .content(requestJson1)
                 .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON);
+                .accept(MediaType.APPLICATION_JSON)
+                .header("App-Guard", "ERP");
+
+        ResultActions response = mockMvc.perform(requestBuilder);
+        response.andExpect(MockMvcResultMatchers.status().isOk());
+        response.andExpect(MockMvcResultMatchers.jsonPath("$.code", Matchers.is(200)));
+        response.andExpect(MockMvcResultMatchers.jsonPath("$.data", Matchers.notNullValue()));
+
+        response.andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    void adminLoginErpByToken2() throws Exception {
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
+                .post(loginUri + "/token")
+                .content(requestJson2)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .header("App-Guard", "ERP");
+
+        ResultActions response = mockMvc.perform(requestBuilder);
+        response.andExpect(MockMvcResultMatchers.status().isOk());
+        response.andExpect(MockMvcResultMatchers.jsonPath("$.code", Matchers.is(200)));
+        response.andExpect(MockMvcResultMatchers.jsonPath("$.data", Matchers.notNullValue()));
+
+        response.andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    void adminLoginErpByPassword() throws Exception {
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
+                .post(loginUri + "/password")
+                .content(requestJson1)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .header("App-Guard", "ERP");
+
+        ResultActions response = mockMvc.perform(requestBuilder);
+        response.andExpect(MockMvcResultMatchers.status().isOk());
+        response.andExpect(MockMvcResultMatchers.jsonPath("$.code", Matchers.is(200)));
+        response.andExpect(MockMvcResultMatchers.jsonPath("$.data", Matchers.notNullValue()));
+
+        response.andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    void adminLoginErpByCode() throws Exception {
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
+                .post(loginUri + "/code")
+                .content(requestJson2)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .header("App-Guard", "ERP");
 
         ResultActions response = mockMvc.perform(requestBuilder);
         response.andExpect(MockMvcResultMatchers.status().isOk());

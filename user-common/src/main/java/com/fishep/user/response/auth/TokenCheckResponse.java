@@ -8,7 +8,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TokenCheckResponse {
-    public Boolean flag;
-
+    public Integer version;
+    public String guard;
+    public String userType;
     public Long userId;
+    public String userName;
 }

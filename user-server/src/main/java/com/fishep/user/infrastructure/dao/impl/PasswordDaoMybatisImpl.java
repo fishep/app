@@ -17,18 +17,25 @@ public class PasswordDaoMybatisImpl implements TokenDao {
 
     @Override
     public TokenDO select(UserDO user) {
-        UserDO userDO = null;
-        if (user.getId() != null) {
-            userDO = userMapper.selectById(user.getId());
-        }
-        if (user.getName() != null) {
-            userDO = userMapper.selectByName(user.getName());
-        }
-        if (user.getEmail() != null) {
-            userDO = userMapper.selectByEmail(user.getEmail());
+        if (user.getType() == null) {
+            return null;
         }
 
-        if (userDO != null){
+        UserDO userDO = null;
+        if (user.getId() != null) {
+            userDO = userMapper.selectById(user);
+        }
+        if (user.getName() != null) {
+            userDO = userMapper.selectByName(user);
+        }
+        if (user.getEmail() != null) {
+            userDO = userMapper.selectByEmail(user);
+        }
+        if (user.getPhoneNumber() != null) {
+            userDO = userMapper.selectByPhoneNumber(user);
+        }
+
+        if (userDO != null) {
             return new TokenDO(userDO.getId(), userDO.getPassword());
         }
 

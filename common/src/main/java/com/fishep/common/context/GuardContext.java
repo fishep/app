@@ -1,5 +1,7 @@
 package com.fishep.common.context;
 
+import com.fishep.common.type.Guard;
+
 /**
  * 当前guard
  */
@@ -7,7 +9,7 @@ public class GuardContext implements AutoCloseable {
 
     private static GuardContext instance = new GuardContext();
 
-    private static final ThreadLocal<String> ctx = new ThreadLocal<>();
+    private static final ThreadLocal<Guard> ctx = new ThreadLocal<>();
 
     private GuardContext() {
     }
@@ -17,10 +19,18 @@ public class GuardContext implements AutoCloseable {
             throw new RuntimeException("GuardContext repeat setup");
         }
 
-        ctx.set(name);
+        ctx.set(Guard.valueOf(name));
     }
 
-    public String getGuard() {
+    public void setGuard(Guard guard) {
+        if (ctx.get() != null) {
+            throw new RuntimeException("GuardContext repeat setup");
+        }
+
+        ctx.set(guard);
+    }
+
+    public Guard getGuard() {
         return ctx.get();
     }
 
@@ -33,12 +43,16 @@ public class GuardContext implements AutoCloseable {
         return instance;
     }
 
-    public static String getCurrentGuard() {
+    public static Guard getCurrentGuard() {
         return instance.getGuard();
     }
 
     public static void setCurrentGuard(String name) {
         instance.setGuard(name);
+    }
+
+    public static void setCurrentGuard(Guard guard) {
+        instance.setGuard(guard);
     }
 
     public static void closeGuardContext() throws Exception {

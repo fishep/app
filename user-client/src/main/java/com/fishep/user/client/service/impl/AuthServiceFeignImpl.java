@@ -1,5 +1,6 @@
 package com.fishep.user.client.service.impl;
 
+import com.fishep.common.exception.ServiceException;
 import com.fishep.common.type.Result;
 import com.fishep.user.client.feign.AuthFeign;
 import com.fishep.user.client.service.AuthService;
@@ -18,7 +19,7 @@ public class AuthServiceFeignImpl implements AuthService {
     AuthFeign authFeign;
 
     @Override
-    public Long check(String guard, String token) {
+    public TokenCheckResponse check(String guard, String token) {
         /**
          * 在 reactor 里调用 ，必须用异步
          * @TODO 这里必须用异步，why？被gateway调用的必须要用异步？
@@ -32,21 +33,10 @@ public class AuthServiceFeignImpl implements AuthService {
             throw new RuntimeException(e);
         }
 
-        if (result == null || result.getData() == null || result.getData().getFlag() == Boolean.FALSE || result.getData().getUserId() == null || result.getData().getUserId() <= 0) {
-            throw new RuntimeException(result.getMessage());
+        if (result == null || result.getData() == null) {
+            throw new ServiceException("Token authentication passed differently");
         }
 
-        return result.getData().getUserId();
+        return result.getData();
     }
-
-//    @Override
-//    public Long check(String token) {
-//        Result<TokenCheckResponse> result = authFeign.check(token);
-//
-//        if (result == null || result.getData() == null || result.getData().getFlag() == Boolean.FALSE || result.getData().getUserId() == null || result.getData().getUserId() <= 0) {
-//            throw new RuntimeException(result.getMessage());
-//        }
-//
-//        return result.getData().getUserId();
-//    }
 }

@@ -68,9 +68,9 @@ public class PermissionAspect {
 
         // @TODO 根据用户id，获取用户权限
 
-        Long id = UserContext.getCurrentUser();
+        UserContext.User user = UserContext.getCurrentUser();
 
-        return new String[]{"user.test.api.permission.apiPermission", "oms.order.orders.create"};
+        return new String[]{"user.test.api.permission.apiPermission", "oms.order.admin.orders.create"};
 
 //        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
 //        HttpServletRequest request = attributes.getRequest();

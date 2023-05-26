@@ -14,14 +14,16 @@ public class ContextHandlerInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String guard = request.getHeader("App-Guard");
-        if (guard == null || guard.isEmpty()){
+        if (guard == null || guard.isEmpty()) {
             throw new ServiceException("ContextHandlerInterceptor App-Guard is empty");
         }
         GuardContext.setCurrentGuard(guard);
 
+        String userType = request.getHeader("App-User-Type");
         String userId = request.getHeader("App-User-Id");
-        if (userId != null && !userId.isEmpty()){
-            UserContext.setCurrentUser(userId);
+        String userName = request.getHeader("App-User-Name");
+        if (userType != null && !userType.isEmpty() && userId != null && !userId.isEmpty() && userName != null && !userName.isEmpty()) {
+            UserContext.setCurrentUser(userType, userId, userName);
         }
 
         return HandlerInterceptor.super.preHandle(request, response, handler);

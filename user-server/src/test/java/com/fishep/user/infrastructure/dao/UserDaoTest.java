@@ -1,5 +1,6 @@
 package com.fishep.user.infrastructure.dao;
 
+import com.fishep.user.type.UserType;
 import com.fishep.user.infrastructure.data.UserDO;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +23,11 @@ class UserDaoTest {
     @BeforeEach
     public void setUp() {
         userDO = new UserDO();
+        userDO.setType(UserType.ADMIN.toString());
         userDO.setId(2l);
         userDO.setName("zhangsan");
         userDO.setEmail("zhangsan@email.com");
+        userDO.setPhoneNumber("16888888811");
         userDO.setPassword("********");
         userDO.setCreatedAt(Instant.now().toEpochMilli());
         userDO.setUpdatedAt(Instant.now().toEpochMilli());

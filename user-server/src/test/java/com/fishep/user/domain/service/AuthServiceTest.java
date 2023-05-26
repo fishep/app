@@ -2,12 +2,11 @@ package com.fishep.user.domain.service;
 
 import com.fishep.common.exception.ClassTypeException;
 import com.fishep.common.type.Email;
-import com.fishep.user.domain.entity.Code;
-import com.fishep.user.domain.entity.Password;
-import com.fishep.user.domain.entity.Token;
-import com.fishep.user.domain.entity.User;
+import com.fishep.common.type.PhoneNumber;
+import com.fishep.user.domain.entity.*;
 import com.fishep.user.type.UserId;
 import com.fishep.user.type.UserName;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,9 +21,19 @@ class AuthServiceTest {
     @Autowired
     AuthService authService;
 
+    private User user;
+
+    @BeforeEach
+    public void setUp() {
+        user = new Admin(new UserId(1l), new UserName("fly"));
+        user.setEmail(new Email("fly@test"));
+        user.setPhoneNumber(new PhoneNumber("16888888888"));
+        user.setCreatedAt(Instant.now());
+        user.setUpdatedAt(Instant.now());
+    }
+
     @Test
     void check() {
-        User user = new User(new UserId(1l), new UserName("test"), new Email("test@email.com"), Instant.now(), Instant.now());
         Token password1 = new Password("1234");
         Token password2 = new Password("1234");
         Token password3 = new Password("12345555");

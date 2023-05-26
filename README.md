@@ -33,3 +33,11 @@ common  <--------------  xx-common
                                  /
                         yy-client
 ```
+
+> api 分类  
+- 所有api = 后台api（erp-gateway，注解ErpGuard）+ 商城api（shop-gateway，注解ShopGuard）+ 开放api（open-gateway，OpenGuard）+ 其他api
+  - 后台api = 访客api（不能在登录的状态下访问）+ 认证api（必须在登录的状态下访问，只提供ADMIN的登录）
+  - 商城api = 访客api（不能在登录的状态下访问）+ 认证api（必须在登录的状态下访问，提供ADMIN，CUSTOMER的登录）+ 其他api（是否登录都可以）
+    - 认证api = 认证ADMIN的api（AdminGuard） + 认证CUSTOMER的api（CustomerGuard）
+  - 开放api = 
+  - 其他api = 

@@ -1,53 +1,47 @@
-show databases ;
+show databases;
 
 create database user;
 
 use user;
 
-show tables ;
+show tables;
 
 drop table if exists `users`;
 create table `users`
 (
-    `id` bigint not null comment 'id',
-    `name` varchar(255) not null comment '用户名',
-    `email` varchar(255) not null comment '邮箱',
-    `password` varchar(255) not null comment '密码',
-    `created_at` bigint not null default 0 comment '创建时间',
-    `updated_at` bigint not null default 0 comment '更新时间',
-    primary key (`id`),
-    unique key (`name`),
-    unique key (`email`)
-);
+    `type`         varchar(16) not null comment '用户类型，ADMIN：管理员，公司内部用户；CUSTOMER：客户，任何在商城注册的用户；SUPPLIER：供应商，公司的供应商。',
+    `id`           bigint      not null comment 'id',
+    `name`         varchar(64) not null comment '用户名',
+    `email`        varchar(64)          default null comment '邮箱',
+    `phone_number` varchar(64)          default null comment '电话号码',
+    `password`     varchar(255)         default null comment '密码',
+    `created_at`   bigint      not null default 0 comment '创建时间',
+    `updated_at`   bigint      not null default 0 comment '更新时间',
+    primary key (`type`,`id`),
+    unique key (`type`, `name`),
+    unique key (`type`, `email`),
+    unique key (`type`, `phone_number`)
+)PARTITION BY LIST COLUMNS(type) (
+    PARTITION p0 VALUES IN('ADMIN'),
+    PARTITION p1 VALUES IN('CUSTOMER'),
+    PARTITION p2 VALUES IN('SUPPLIER')
+    );
 
-insert into `users`(`id`, `name`, `email`, `password`, `created_at`) VALUES (1, "test", "test@email.com", "hash12345678", 1681987720955);
-insert into `users`(`id`, `name`, `email`, `password`, `created_at`) VALUES (1572870916451598336, "username", "user@email.com", "***", 1681987720955);
-delete from `users` where `id` = 1572870916451598336;
-update `users` set `name`="usernameupdated", `email`="userupdated@email.com", `updated_at`=1664183128 where `id` = 1572870916451598336;
-select * from `users`;
-select * from `users` where `id` = 1572870916451598336;
+explain select * from users;
+explain SELECT * FROM users WHERE `type` = 'ADMIN';
+explain SELECT * FROM users PARTITION (p0, p1) WHERE `type` = 'ADMIN';
+explain SELECT * FROM users PARTITION (p2) WHERE `type` = 'ADMIN';
+select * from information_schema.PARTITIONS where TABLE_SCHEMA = "user" and TABLE_NAME = "users";
 
-drop table if exists `accounts`;
-create table `accounts`
-(
-    `id` bigint not null comment 'id',
-    `number` char(16) not null comment '账户编号',
-    `user_id` bigint not null comment 'users.id',
-    `name` varchar(255) not null comment '账户名',
-    `currency` char(3) not null comment '开户币种,例如：USD,CNY',
-    `amount` int unsigned not null comment '账户金额，单位：分',
-    `quota` int unsigned not null comment '信用额度，单位：分',
-    `created_at` bigint not null default 0 comment '创建时间',
-    `updated_at` bigint not null default 0 comment '更新时间',
-    primary key (`id`),
-    unique key (`number`),
-    foreign key accounts_user_id_foreign(`user_id`) REFERENCES users(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-);
+select * from users;
+insert into `users`(`type`, `id`, `name`, `email`, `phone_number`, `password`, `created_at`) VALUES ("ADMIN", 1, "test", "test@email.com", "16888888888", "hash12345678", 1681987720955);
+insert into `users`(`type`, `id`, `name`, `email`, `phone_number`, `password`, `created_at`) VALUES ("ADMIN", 2, "test2", "test2@email.com", "16888888882", "hash12345678", 1681987720955);
+insert into `users`(`type`, `id`, `name`, `email`, `phone_number`, `password`, `created_at`) VALUES ("CUSTOMER", 1, "test", "test@email.com", "16888888888", "hash12345678", 1681987720955);
+insert into `users`(`type`, `id`, `name`, `email`, `phone_number`, `password`, `created_at`) VALUES ("CUSTOMER", 2, "test2", "test2@email.com", "16888888882", "hash12345678", 1681987720955);
 
-insert into `accounts`(`id`, `number`, `user_id`, `name`, `currency`, `amount`, `quota`, `created_at`, `updated_at`) VALUES (1572870916451594444, "AC20220926000001",1572870916451598336, "account1", "CNY", 10000, 100, 1664183128, 1664183128);
-insert into `accounts`(`id`, `number`, `user_id`, `name`, `currency`, `amount`, `quota`, `created_at`, `updated_at`) VALUES (1572870916451594445, "AC20220926000002",1572870916451598336, "account2", "USD", 100, 1000, 1664183128, 1664183128);
-delete from `accounts` where `id` = 1572870916451594444;
-update `accounts` set `updated_at` = 1664183128 where `id` = 1572870916451594444;
-select * from `accounts`;
-select * from `accounts` where id = 1572870916451594444;
+update `users` set `email`="userupdated@email.com", `phone_number`="10087", `updated_at`=1664183128 where `id` = 2;
+update `users` set `email`="userupdated@email.com", `phone_number`="10087", `updated_at`=1664183128 where `type` = "ADMIN" and `id` = 2;
+delete from `users` where 1;
+delete from `users` where `id` = 2;
+delete from `users` where `type` = "ADMIN" and `id` = 2 ;
 
