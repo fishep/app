@@ -7,6 +7,11 @@ public class ServiceException extends AppException {
         super(StatusCode.SERVICE_ERROR.getCode(), StatusCode.SERVICE_ERROR.getMessage());
     }
 
+    public ServiceException(Throwable cause) {
+        super(cause);
+        this.code = StatusCode.SERVICE_ERROR.getCode();
+    }
+
     public ServiceException(String message) {
         super(message);
         this.code = StatusCode.SERVICE_ERROR.getCode();

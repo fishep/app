@@ -1,5 +1,6 @@
 package com.fishep.common.context;
 
+import com.fishep.common.exception.ServiceException;
 import com.fishep.common.type.Guard;
 
 /**
@@ -16,7 +17,7 @@ public class GuardContext implements AutoCloseable {
 
     public void setGuard(String name) {
         if (ctx.get() != null) {
-            throw new RuntimeException("GuardContext repeat setup");
+            throw new ServiceException("GuardContext repeat setup");
         }
 
         ctx.set(Guard.valueOf(name));
@@ -24,7 +25,7 @@ public class GuardContext implements AutoCloseable {
 
     public void setGuard(Guard guard) {
         if (ctx.get() != null) {
-            throw new RuntimeException("GuardContext repeat setup");
+            throw new ServiceException("GuardContext repeat setup");
         }
 
         ctx.set(guard);

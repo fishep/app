@@ -1,5 +1,6 @@
 package com.fishep.erp.filter;
 
+import com.fishep.common.exception.ServiceException;
 import com.fishep.common.type.Guard;
 import com.fishep.user.client.service.AuthService;
 import com.fishep.user.response.auth.TokenCheckResponse;
@@ -39,14 +40,14 @@ public class AuthFilter implements GlobalFilter, Ordered {
         // 不能在登录的状态下访问的路由
         if (Stream.of(unAuthRoutes).anyMatch(routeRegex -> uri.matches(routeRegex))) {
             if (token != null && !token.isEmpty()) {
-                throw new RuntimeException("token is exist, please login out!");
+                throw new ServiceException("token is exist, please login out!");
             }
             return chain.filter(exchange);
         }
 
         // 必须在登录的状态下访问的路由
         if (token == null || token.isEmpty()) {
-            throw new RuntimeException("token is not exist, please login!");
+            throw new ServiceException("token is not exist, please login!");
         }
 
         ServerHttpRequest.Builder builder = request.mutate();

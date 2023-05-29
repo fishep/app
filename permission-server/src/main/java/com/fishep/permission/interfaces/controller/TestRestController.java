@@ -1,6 +1,7 @@
 package com.fishep.permission.interfaces.controller;
 
 import com.fishep.common.type.Result;
+import com.fishep.permission.annotation.Permission;
 import com.fishep.user.client.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -36,5 +37,12 @@ public class TestRestController {
         String ret = testService.apiPermission();
         System.out.println("testFeign.apiPermission(): " + ret);
         return ret;
+    }
+
+    @GetMapping("/permission/check")
+    @Permission("permission.test.permission.check")
+    public String permission() {
+        System.out.println("Permission verification passed!");
+        return "权限校验通过";
     }
 }

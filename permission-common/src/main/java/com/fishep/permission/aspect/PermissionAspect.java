@@ -4,8 +4,10 @@ import com.fishep.common.context.UserContext;
 import com.fishep.common.exception.PermissionException;
 import com.fishep.permission.annotation.Permission;
 import com.fishep.permission.annotation.Permissions;
+import com.fishep.permission.api.PermissionProvider;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -13,6 +15,9 @@ import java.util.Arrays;
 @Aspect
 @Component
 public class PermissionAspect {
+
+    @Autowired
+    private PermissionProvider permissionProvider;
 
     @Before("@annotation(permission)")
     public void permission(Permission permission) {
@@ -37,7 +42,7 @@ public class PermissionAspect {
     private void check(Permissions permissions) {
         System.out.println("check Permissions: " + permissions.value());
 
-        String[] ps = userPermissions();
+        String[] ps = currentUserPermissions();
         if (permissions.value().length > 0) {
             for (Permission p : permissions.value()) {
                 if (!Arrays.asList(ps).contains(p.value())) {
@@ -58,30 +63,19 @@ public class PermissionAspect {
     private void check(Permission permission) {
         System.out.println("check Permissions: " + permission.value());
 
-        String[] ps = userPermissions();
+        String[] ps = currentUserPermissions();
         if (!Arrays.asList(ps).contains(permission.value())) {
             throw new PermissionException("Permission required, permission: " + permission.value());
         }
     }
 
-    private String[] userPermissions() {
-
-        // @TODO 根据用户id，获取用户权限
-
+    private String[] currentUserPermissions() {
         UserContext.User user = UserContext.getCurrentUser();
+        if (user == null) {
+            throw new PermissionException("The current user does not exist, UserContext.User is null");
+        }
 
-        return new String[]{"user.test.api.permission.apiPermission", "oms.order.admin.orders.create"};
-
-//        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-//        HttpServletRequest request = attributes.getRequest();
-//
-//        System.out.println("App-User-Permissions: " + request.getHeader("App-User-Permissions"));
-//
-//        String permissions = request.getHeader("App-User-Permissions");
-//        if (permissions == null || permissions.isEmpty()) {
-//            throw new PermissionException("permissions is not exist!");
-//        }
-//
-//        return permissions.split(",");
+//        return new String[]{"user.test.api.permission.apiPermission", "oms.order.admin.orders.create"};
+        return permissionProvider.currentUserPermissions();
     }
 }

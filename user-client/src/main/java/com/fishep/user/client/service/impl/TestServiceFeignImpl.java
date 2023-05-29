@@ -1,5 +1,6 @@
 package com.fishep.user.client.service.impl;
 
+import com.fishep.common.exception.ServiceException;
 import com.fishep.common.type.Result;
 import com.fishep.user.client.feign.TestFeign;
 import com.fishep.user.client.service.TestService;
@@ -25,7 +26,7 @@ public class TestServiceFeignImpl implements TestService {
 //        try {
 //            ret = f.get();
 //        } catch (Exception e) {
-//            throw new RuntimeException(e);
+//            throw new ServiceException(e);
 //        }
 //
 //        return ret.toString();
@@ -39,7 +40,7 @@ public class TestServiceFeignImpl implements TestService {
     public String apiPermission() {
         Result<String> result = testFeign.apiPermission();
         if (result == null || result.getData() == null || result.getData().isEmpty()) {
-            throw new RuntimeException(result.getMessage());
+            throw new ServiceException(result.getMessage());
         }
 
         return result.toString();

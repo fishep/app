@@ -30,7 +30,7 @@ public class AuthServiceFeignImpl implements AuthService {
         try {
             result = future.get();
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new ServiceException(e);
         }
 
         if (result == null || result.getData() == null) {

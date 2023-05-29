@@ -1,6 +1,11 @@
-package com.fishep.permission.client.service;
+package com.fishep.permission.application.service;
 
 import com.fishep.permission.api.PermissionProvider;
 
+/**
+ * @Author Fly.Fei
+ * @Date 2023/5/29 16:09
+ * @Desc
+ **/
 public interface PermissionService extends PermissionProvider {
 }

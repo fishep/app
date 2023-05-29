@@ -5,6 +5,7 @@ import com.fishep.common.context.UserContext;
 import com.fishep.common.exception.ServiceException;
 import com.fishep.user.annotation.AdminGuard;
 import com.fishep.user.annotation.CustomerGuard;
+import com.fishep.user.annotation.UserGuard;
 import com.fishep.user.type.UserType;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -47,4 +48,19 @@ public class AuthGuardAspect {
             throw new ServiceException("AuthGuardAspect Exception, The allowed UserContext is CUSTOMER, but current is " + UserContext.getCurrentUser().getType());
         }
     }
+
+    @Before("@annotation(userGuard)")
+    public void methodUserGuard(UserGuard userGuard) {
+        if (UserContext.getCurrentUser() == null) {
+            throw new ServiceException("AuthGuardAspect Exception, UserContext.getCurrentUser() is null");
+        }
+    }
+
+    @Before("@within(userGuard)")
+    public void classUserGuard(UserGuard userGuard) {
+        if (UserContext.getCurrentUser() == null) {
+            throw new ServiceException("AuthGuardAspect Exception, UserContext.getCurrentUser() is null");
+        }
+    }
+    
 }
