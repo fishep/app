@@ -3,7 +3,6 @@ package com.fishep.user.client.feign;
 import com.fishep.common.type.Result;
 import com.fishep.user.client.feign.impl.AuthFeignImpl;
 import com.fishep.user.response.auth.TokenCheckResponse;
-import feign.Headers;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestHeader;
 public interface AuthFeign {
 
     @PostMapping("/api/user/auth/token/check")
-//    @Headers({"Content-Type: application/json","Accept: application/json"})
     Result<TokenCheckResponse> check(@RequestHeader("App-Guard") String guard, @RequestHeader("Authorization") String authorization);
 
 }

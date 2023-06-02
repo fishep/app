@@ -5,5 +5,5 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @EnableFeignClients("com.fishep.permission.client.feign")
-public class FeignConfig {
+public class PermissionFeignConfig {
 }

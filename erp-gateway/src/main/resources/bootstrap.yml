@@ -11,16 +11,16 @@ spring:
   cloud:
     nacos:
       config:
-        server-addr: localhost:8848
+        server-addr: nacos.local:8848
         file-extension: yaml
       #        namespace: b3404bc0-d7dc-4855-b519-570ed34b62d7
       #        group: DEVELOP_GROUP
       discovery:
-        server-addr: localhost:8848
+        server-addr: nacos.local:8848
     sentinel:
       transport:
         port: 8859
-        dashboard: localhost:8858
+        dashboard: sentinel.local:8858
     gateway:
       discovery:
         locator:
@@ -39,6 +39,6 @@ spring:
           predicates:
             - Path=/api/oms/**
 
-#feign:
-#  sentinel:
-#    enabled: true
+feign:
+  sentinel:
+    enabled: true

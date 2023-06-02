@@ -24,6 +24,8 @@ public class FeignInterceptor implements RequestInterceptor {
 //            requestTemplate.header(name, value);
 //        }
 
+        System.out.println("FeignInterceptor");
+
         UserContext.User user = UserContext.getCurrentUser();
         Guard guard = GuardContext.getCurrentGuard();
         requestTemplate.header("App-Guard", guard == null ? null : guard.toString());
