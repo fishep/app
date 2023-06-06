@@ -1,0 +1,74 @@
+version: "3.8"
+
+services:
+  redis:
+    image: redis:6-alpine
+    container_name: app-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - app-net
+    volumes:
+      - app-redis-data:/data
+
+  mysql:
+    container_name: app-mysql
+    build:
+      context: .
+      dockerfile: ./docker/image/mysql/8.0.32/Dockerfile
+    image: app/mysql:8.0.32
+    env_file:
+      - ./docker/env/mysql.env
+    volumes:
+      - app-mysql-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    networks:
+      - app-net
+
+  nacos:
+#    image: nacos/nacos-server:v2.2.1
+    image: nacos/nacos-server:v2.2.3
+    container_name: app-nacos-standalone-mysql
+    env_file:
+      - ./docker/env/nacos-standlone-mysql.env
+    volumes:
+      - nacos-logs:/home/nacos/logs
+    ports:
+      - "8848:8848"
+      - "9848:9848"
+    depends_on:
+      mysql:
+        condition: service_healthy
+#    restart: always
+    networks:
+      - app-net
+
+  sentinel:
+    container_name: app-sentinel
+    build:
+      context: .
+      dockerfile: ./docker/image/sentinel/1.8.6/Dockerfile
+    image: app/sentinel:1.8.6
+    volumes:
+      - sentinel-logs:/root/logs/csp/
+    ports:
+      - "8858:8858"
+    networks:
+      - app-net
+
+networks:
+  app-net:
+
+volumes:
+  app-redis-data:
+  app-mysql-data:
+  nacos-logs:
+  sentinel-logs:
+
+# docker-compose -f docker-compose-base.yml up

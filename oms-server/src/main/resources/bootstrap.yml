@@ -4,22 +4,7 @@ spring:
   application:
     name: oms-server
   profiles:
-    active: dev
-#  main:
-#    allow-circular-references: true
-  cloud:
-    nacos:
-      config:
-        server-addr: nacos.local:8848
-        file-extension: yaml
-      #        namespace: b3404bc0-d7dc-4855-b519-570ed34b62d7
-      #        group: DEVELOP_GROUP
-      discovery:
-        server-addr: nacos.local:8848
-    sentinel:
-      transport:
-        port: 8859
-        dashboard: sentinel.local:8858
+    active: @profiles.active@
 
 #dubbo:
 #  #  scan:

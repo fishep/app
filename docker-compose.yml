@@ -1,0 +1,69 @@
+version: "3.8"
+
+services:
+  erp-gateway:
+    container_name: erp-gateway
+    build:
+      context: erp-gateway
+      dockerfile: Dockerfile
+    image: app/erp-gateway:1.0-SNAPSHOT
+    ports:
+      - "9000:9000"
+    networks:
+      - app-net
+
+  shop-gateway:
+    container_name: shop-gateway
+    build:
+      context: shop-gateway
+      dockerfile: Dockerfile
+    image: app/shop-gateway:1.0-SNAPSHOT
+    ports:
+      - "9002:9002"
+    networks:
+      - app-net
+
+  open-gateway:
+    container_name: open-gateway
+    build:
+      context: open-gateway
+      dockerfile: Dockerfile
+    image: app/open-gateway:1.0-SNAPSHOT
+    ports:
+      - "9008:9008"
+    networks:
+      - app-net
+
+  user-server:
+    container_name: user-server
+    build:
+      context: user-server
+      dockerfile: Dockerfile
+    image: app/user-server:1.0-SNAPSHOT
+    networks:
+      - app-net
+
+  permission-server:
+    container_name: permission-server
+    build:
+      context: permission-server
+      dockerfile: Dockerfile
+    image: app/permission-server:1.0-SNAPSHOT
+    networks:
+      - app-net
+
+  oms-server:
+    container_name: oms-server
+    build:
+      context: oms-server
+      dockerfile: Dockerfile
+    image: app/oms-server:1.0-SNAPSHOT
+    networks:
+      - app-net
+
+networks:
+  app-net:
+
+# docker-compose -f docker-compose.yml up
+
+

@@ -40,4 +40,29 @@ common  <--------------  xx-common
   - 商城api = 访客api（不能在登录的状态下访问）+ 认证api（必须在登录的状态下访问，提供ADMIN，CUSTOMER的登录）+ 其他api（是否登录都可以）
     - 认证api = 认证ADMIN的api（AdminGuard） + 认证CUSTOMER的api（CustomerGuard）
   - 开放api = 
-  - 其他api = 
+  - 其他api =
+
+# package
+```shell
+mvn clean package -DskipTests -Pdev
+mvn clean package -DskipTests -Ptest
+mvn clean package -DskipTests -Pprod
+```
+
+# 基础服务
+> 基础服务，redis, mysql, nacos, sentinel等等
+```shell
+docker-compose -f docker-compose-base.yml up
+```
+
+# 微服务，业务应用
+```shell
+docker-compose -f docker-compose.yml up
+docker-compose up
+```
+
+# 建议
+- 执行 docker-compose -f docker-compose-base.yml up  启动基础服务
+- 在ide上直接运行微服务程序，debug，开发完成
+- 运行 mvn clean package -DskipTests -Pdev 打包完成，执行 java -jar example.jar, 运行微服务，验证jar包可以正常运行
+- 运行 mvn clean package -DskipTests -Ptest 打包完成， docker-compose up 在docker中启动所有服务，验证运行正常
