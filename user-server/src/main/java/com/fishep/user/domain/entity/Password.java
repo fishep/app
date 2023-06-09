@@ -1,5 +1,7 @@
 package com.fishep.user.domain.entity;
 
+import com.fishep.common.exception.NullException;
+
 public class Password extends Token {
 
     protected String value;
@@ -11,7 +13,7 @@ public class Password extends Token {
 
     public Password(String value) {
         if (value == null || value.isEmpty()) {
-            throw new IllegalArgumentException("Password cannot be empty, value: " + value);
+            throw new NullException("Password cannot be empty, value: " + value);
         }
 
         this.value = value;

@@ -1,6 +1,7 @@
 package com.fishep.user.domain.service;
 
-import com.fishep.common.exception.ClassTypeException;
+import com.fishep.common.exception.NullException;
+import com.fishep.common.exception.TypeException;
 import com.fishep.common.type.Email;
 import com.fishep.common.type.PhoneNumber;
 import com.fishep.user.domain.entity.*;
@@ -41,10 +42,10 @@ class AuthServiceTest {
         Token code2 = new Code("1234");
         Token code3 = new Code("1234111111");
 
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(NullException.class, () -> {
             authService.check(user, password1);
         });
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(NullException.class, () -> {
             authService.check(user, code1);
         });
 
@@ -56,7 +57,7 @@ class AuthServiceTest {
         assertTrue(authService.check(user, code2));
         assertFalse(authService.check(user, code3));
 
-        assertThrows(ClassTypeException.class, () -> {
+        assertThrows(TypeException.class, () -> {
             authService.check(user, password1);
         });
     }

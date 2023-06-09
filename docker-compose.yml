@@ -9,6 +9,8 @@ services:
     image: app/erp-gateway:1.0-SNAPSHOT
     ports:
       - "9000:9000"
+    volumes:
+      - app-log:/app/erp-gateway/log/
     networks:
       - app-net
 
@@ -20,6 +22,8 @@ services:
     image: app/shop-gateway:1.0-SNAPSHOT
     ports:
       - "9002:9002"
+    volumes:
+      - app-log:/app/shop-gateway/log/
     networks:
       - app-net
 
@@ -31,6 +35,8 @@ services:
     image: app/open-gateway:1.0-SNAPSHOT
     ports:
       - "9008:9008"
+    volumes:
+      - app-log:/app/open-gateway/log/
     networks:
       - app-net
 
@@ -40,6 +46,8 @@ services:
       context: user-server
       dockerfile: Dockerfile
     image: app/user-server:1.0-SNAPSHOT
+    volumes:
+      - app-log:/app/user-server/log/
     networks:
       - app-net
 
@@ -49,6 +57,8 @@ services:
       context: permission-server
       dockerfile: Dockerfile
     image: app/permission-server:1.0-SNAPSHOT
+    volumes:
+      - app-log:/app/permission-server/log/
     networks:
       - app-net
 
@@ -58,11 +68,16 @@ services:
       context: oms-server
       dockerfile: Dockerfile
     image: app/oms-server:1.0-SNAPSHOT
+    volumes:
+      - app-log:/app/oms-server/log/
     networks:
       - app-net
 
 networks:
   app-net:
+
+volumes:
+  app-log:
 
 # docker-compose -f docker-compose.yml up
 

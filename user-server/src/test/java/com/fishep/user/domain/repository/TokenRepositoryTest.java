@@ -1,6 +1,6 @@
 package com.fishep.user.domain.repository;
 
-import com.fishep.common.exception.EntityNullException;
+import com.fishep.common.exception.NullException;
 import com.fishep.user.domain.entity.Admin;
 import com.fishep.user.domain.entity.User;
 import com.fishep.user.type.UserId;
@@ -32,7 +32,7 @@ class TokenRepositoryTest {
     void findPassword() {
         assertNotNull(tokenRepository.findPassword(user1));
 
-        assertThrows(EntityNullException.class, () -> {
+        assertThrows(NullException.class, () -> {
             tokenRepository.findPassword(user2);
         });
     }
@@ -41,7 +41,7 @@ class TokenRepositoryTest {
     void findCode() {
         assertNotNull(tokenRepository.findCode(user1));
 
-        assertThrows(EntityNullException.class, () -> {
+        assertThrows(NullException.class, () -> {
             tokenRepository.findCode(user2);
         });
     }

@@ -1,6 +1,6 @@
 package com.fishep.user.application.service.impl;
 
-import com.fishep.common.exception.ClassTypeException;
+import com.fishep.common.exception.TypeException;
 import com.fishep.common.exception.ServiceException;
 import com.fishep.common.type.Guard;
 import com.fishep.user.application.assembler.TokenDTOAssembler;
@@ -111,7 +111,7 @@ public class AuthCaseServiceImpl implements AuthCaseService {
         } else if (user instanceof Supplier) {
             type = UserType.SUPPLIER;
         } else {
-            throw new ClassTypeException("User type not supported, User: ");
+            throw new TypeException("User type not supported, User: ");
         }
 
         // @TODO 生成jwt

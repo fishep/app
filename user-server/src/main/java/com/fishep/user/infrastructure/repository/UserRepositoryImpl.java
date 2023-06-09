@@ -1,6 +1,6 @@
 package com.fishep.user.infrastructure.repository;
 
-import com.fishep.common.exception.EntityNullException;
+import com.fishep.common.exception.NullException;
 import com.fishep.common.type.Email;
 import com.fishep.common.type.PhoneNumber;
 import com.fishep.user.domain.entity.User;
@@ -45,7 +45,7 @@ public class UserRepositoryImpl implements UserRepository {
     public User findOrException(UserType type, UserId id) {
         User user = this.find(type, id);
         if (user == null) {
-            throw new EntityNullException("User is null, find by UserId: " + id.getValue());
+            throw new NullException("User is null, find by UserId: " + id.getValue());
         }
         return user;
     }
@@ -63,7 +63,7 @@ public class UserRepositoryImpl implements UserRepository {
     public User findOrException(UserType type, UserName name) {
         User user = this.find(type, name);
         if (user == null) {
-            throw new EntityNullException("User is null, find by UserName: " + name.getValue());
+            throw new NullException("User is null, find by UserName: " + name.getValue());
         }
         return user;
     }
@@ -81,7 +81,7 @@ public class UserRepositoryImpl implements UserRepository {
     public User findOrException(UserType type, Email email) {
         User user = this.find(type, email);
         if (user == null) {
-            throw new EntityNullException("User is null, find by Email: " + email.getValue());
+            throw new NullException("User is null, find by Email: " + email.getValue());
         }
         return user;
     }
@@ -99,7 +99,7 @@ public class UserRepositoryImpl implements UserRepository {
     public User findOrException(UserType type, PhoneNumber phoneNumber) {
         User user = this.find(type, phoneNumber);
         if (user == null) {
-            throw new EntityNullException("User is null, find by PhoneNumber: " + phoneNumber.getValue());
+            throw new NullException("User is null, find by PhoneNumber: " + phoneNumber.getValue());
         }
         return user;
     }

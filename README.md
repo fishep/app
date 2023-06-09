@@ -13,14 +13,15 @@
 - data-server          基础数据模块      port: 9010 - 9019  REDIS_DATABASE:1
 - user-server          用户管理模块      port: 9020 - 9029  REDIS_DATABASE:2
 - permission-server    权限管理模块      port: 9030 - 9039  REDIS_DATABASE:3
-- product-server       产品管理模块      port: 9040 - 9049  REDIS_DATABASE:4
+- erp-server           企业资源管理      port: 9040 - 9049  REDIS_DATABASE:4
 - crm-server           客户管理模块      port: 9050 - 9059  REDIS_DATABASE:5
-- fms-server           财务管理模块      port: 9060 - 9069  REDIS_DATABASE:6
+- pdt-server           产品管理模块      port: 9060 - 9069  REDIS_DATABASE:6
 - oms-server           订单管理模块      port: 9070 - 9079  REDIS_DATABASE:7
-- ims-server           库存管理模块      port: 9080 - 9089  REDIS_DATABASE:8
-- pms-server           采购管理模块      port: 9090 - 9099  REDIS_DATABASE:9
+- pms-server           采购管理模块      port: 9080 - 9089  REDIS_DATABASE:8
+- wms-server           库存管理模块      port: 9090 - 9099  REDIS_DATABASE:9
 - lms-server           物流管理模块      port: 9100 - 9109  REDIS_DATABASE:10
-- cdms-server          报关管理模块      port: 9110 - 9119  REDIS_DATABASE:11
+- cms-server           报关管理模块      port: 9110 - 9119  REDIS_DATABASE:11
+- fms-server           财务管理模块      port: 9120 - 9129  REDIS_DATABASE:12
 
 > 依赖关系
 ```shell

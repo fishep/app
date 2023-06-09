@@ -1,6 +1,6 @@
 package com.fishep.user.infrastructure.repository;
 
-import com.fishep.common.exception.EntityNullException;
+import com.fishep.common.exception.NullException;
 import com.fishep.common.type.Email;
 import com.fishep.common.type.PhoneNumber;
 import com.fishep.user.domain.repository.UserRepository;
@@ -74,16 +74,16 @@ class UserRepositoryImplTest {
             userRepository.findOrException(UserType.ADMIN, new PhoneNumber("16888888888"));
         });
 
-        assertThrows(EntityNullException.class, () -> {
+        assertThrows(NullException.class, () -> {
             userRepository.findOrException(UserType.ADMIN, new UserId(2l));
         });
-        assertThrows(EntityNullException.class, () -> {
+        assertThrows(NullException.class, () -> {
             userRepository.findOrException(UserType.ADMIN, new UserName("test.test"));
         });
-        assertThrows(EntityNullException.class, () -> {
+        assertThrows(NullException.class, () -> {
             userRepository.findOrException(UserType.ADMIN, new Email("test.test@email.com"));
         });
-        assertThrows(EntityNullException.class, () -> {
+        assertThrows(NullException.class, () -> {
             userRepository.findOrException(UserType.ADMIN, new PhoneNumber("17000000000"));
         });
     }

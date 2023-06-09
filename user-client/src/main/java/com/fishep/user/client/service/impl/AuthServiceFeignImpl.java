@@ -36,6 +36,7 @@ public class AuthServiceFeignImpl implements AuthService {
      *
      * @TODO 此处有bug， https://github.com/spring-cloud/spring-cloud-openfeign/issues/475
      * @TODO 应用启动之后，第一个请求必须是直接转发（例如登录，注册）的， 不能先调用 openfeign client， 以便feign client 成功初始化，在实际运行时没问题，单个接口测试就bug
+     * @TODO 这个bug 莫名其妙的好了
      *
      */
     public TokenCheckResponse asyncCheck(String guard, String token){
@@ -52,7 +53,7 @@ public class AuthServiceFeignImpl implements AuthService {
             throw new ServiceException(e);
         }
         if (result == null || result.getData() == null) {
-            throw new ServiceException("Token authentication passed differently");
+            throw new ServiceException("Token authentication passed differently, " + result.getMessage());
         }
         return result.getData();
     }

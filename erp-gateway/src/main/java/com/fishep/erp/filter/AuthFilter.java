@@ -1,7 +1,9 @@
 package com.fishep.erp.filter;
 
+import com.alibaba.fastjson.JSON;
 import com.fishep.common.exception.ServiceException;
 import com.fishep.common.type.Guard;
+import com.fishep.common.type.Result;
 import com.fishep.user.client.service.AuthService;
 import com.fishep.user.response.auth.TokenCheckResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -10,12 +12,16 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
+import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import java.nio.charset.StandardCharsets;
 import java.util.stream.Stream;
 
 @Component
@@ -31,7 +37,19 @@ public class AuthFilter implements GlobalFilter, Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         log.info("AuthFilter filter request");
+        try {
+            return auth(exchange, chain);
+        } catch (Exception e) {
+            return exceptionResponse(e, exchange.getResponse());
+        }
+    }
 
+    @Override
+    public int getOrder() {
+        return 1;
+    }
+
+    private Mono<Void> auth(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
         HttpHeaders headers = request.getHeaders();
         String uri = request.getPath().value();
@@ -59,8 +77,12 @@ public class AuthFilter implements GlobalFilter, Ordered {
         return chain.filter(exchange.mutate().request(builder.build()).build());
     }
 
-    @Override
-    public int getOrder() {
-        return 1;
+    private Mono<Void> exceptionResponse(Exception e, ServerHttpResponse response) {
+        response.setStatusCode(HttpStatus.BAD_REQUEST);
+        Result<String> result = new Result<>(HttpStatus.BAD_REQUEST.value(), e.getMessage(), "gateway auth exception");
+        DataBuffer buffer = response.bufferFactory().wrap(JSON.toJSONString(result).getBytes(StandardCharsets.UTF_8));
+        response.getHeaders().add("Content-Type", "application/json;charset=UTF-8");
+
+        return response.writeWith(Mono.just(buffer));
     }
 }

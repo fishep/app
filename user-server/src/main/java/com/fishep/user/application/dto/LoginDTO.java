@@ -1,5 +1,7 @@
 package com.fishep.user.application.dto;
 
+import com.fishep.common.exception.NullException;
+import com.fishep.common.exception.TypeException;
 import com.fishep.common.type.Email;
 import com.fishep.common.type.PhoneNumber;
 import com.fishep.user.type.UserName;
@@ -62,7 +64,7 @@ public class LoginDTO {
 
     private void checkArgument(String identity, String token) {
         if (identity == null || identity.isEmpty() || token == null || token.isEmpty()) {
-            throw new IllegalArgumentException("Can not be null, Identity: " + identity + ", token: " + token);
+            throw new NullException("Can not be null, Identity: " + identity + ", token: " + token);
         }
     }
 
@@ -74,7 +76,7 @@ public class LoginDTO {
         } else if (identity.matches(PhoneNumber.regex)) {
             identityType = IdentityType.PhoneNumber;
         } else {
-            throw new IllegalArgumentException("Unable to infer the type of Identity, Identity: " + identity);
+            throw new TypeException("Unable to infer the type of Identity, Identity: " + identity);
         }
 
         return identityType;

@@ -2,17 +2,14 @@ package com.fishep.common.exception;
 
 import com.fishep.common.type.StatusCode;
 
-/**
- * 分类异常，包含同类型的所有异常  code 可能为分类的值  例如：1200 - 1299
- */
-public class ValidateException extends AppException {
+public class ValidateException extends ServiceException {
     public ValidateException() {
-        super(StatusCode.VALIDATE_ERROR.getCode(), StatusCode.VALIDATE_ERROR.getMessage());
+        super(StatusCode.VALIDATE_EXCEPTION.getCode(), StatusCode.VALIDATE_EXCEPTION.getMessage());
     }
 
     public ValidateException(String message) {
         super(message);
-        this.code = StatusCode.VALIDATE_ERROR.getCode();
+        this.code = StatusCode.VALIDATE_EXCEPTION.getCode();
     }
 
     public ValidateException(Integer code, String message) {

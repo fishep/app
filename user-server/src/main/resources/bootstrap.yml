@@ -4,6 +4,7 @@ spring:
   application:
     name: user-server
   profiles:
+#    active: dev
     active: @profiles.active@
 
 #dubbo:

@@ -1,5 +1,7 @@
 package com.fishep.user.application.dto;
 
+import com.fishep.common.exception.NullException;
+import com.fishep.common.exception.TypeException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -8,14 +10,14 @@ class LoginDTOTest {
 
     @Test
     void testNew() {
-        assertThrows(IllegalArgumentException.class, () -> {new LoginDTO(null, "aaa");});
-        assertThrows(IllegalArgumentException.class, () -> {new LoginDTO("", "aaa");});
-        assertThrows(IllegalArgumentException.class, () -> {new LoginDTO("aaa", null);});
-        assertThrows(IllegalArgumentException.class, () -> {new LoginDTO("aaa", "");});
+        assertThrows(NullException.class, () -> {new LoginDTO(null, "aaa");});
+        assertThrows(NullException.class, () -> {new LoginDTO("", "aaa");});
+        assertThrows(NullException.class, () -> {new LoginDTO("aaa", null);});
+        assertThrows(NullException.class, () -> {new LoginDTO("aaa", "");});
 
-        assertThrows(IllegalArgumentException.class, () -> {new LoginDTO(".", "password");});
-        assertThrows(IllegalArgumentException.class, () -> {new LoginDTO("email@", "password");});
-        assertThrows(IllegalArgumentException.class, () -> {new LoginDTO("1700000000000", "password");});
+        assertThrows(TypeException.class, () -> {new LoginDTO(".", "password");});
+        assertThrows(TypeException.class, () -> {new LoginDTO("email@", "password");});
+        assertThrows(TypeException.class, () -> {new LoginDTO("1700000000000", "password");});
 
         assertDoesNotThrow(()->{new LoginDTO("fly", "password");});
         assertDoesNotThrow(()->{new LoginDTO("fly@test", "password");});

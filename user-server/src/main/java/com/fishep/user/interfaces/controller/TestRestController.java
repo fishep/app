@@ -1,8 +1,9 @@
 package com.fishep.user.interfaces.controller;
 
-import com.fishep.common.exception.AppException;
+import com.fishep.common.exception.ServiceError;
+import com.fishep.common.exception.ServiceException;
+import com.fishep.common.exception.ServiceWarn;
 import com.fishep.common.type.Result;
-import com.fishep.common.type.StatusCode;
 import com.fishep.permission.annotation.Permission;
 import com.fishep.permission.annotation.Permissions;
 import com.fishep.server.annotation.CustomFormat;
@@ -84,7 +85,16 @@ public class TestRestController {
 
     @GetMapping("/throw/exception")
     public Result testThrowException() {
-        throw new AppException(StatusCode.FAILURE.getCode(), "something is worry!");
+        throw new ServiceException("something is worry!, Please self check!");
     }
 
+    @GetMapping("/throw/warn")
+    public Result testThrowWarn() {
+        throw new ServiceWarn("something is worry!, Please contact the development team for inquiries!");
+    }
+
+    @GetMapping("/throw/error")
+    public Result testThrowError() {
+        throw new ServiceError("something is worry!, Please provide feedback to the development team!");
+    }
 }

@@ -4,6 +4,7 @@ spring:
   application:
     name: erp-gateway
   profiles:
+#    active: dev
     active: @profiles.active@
 #  main:
 #    # authFilter -> TestFeign -> filteringWebHandler -> authFilter

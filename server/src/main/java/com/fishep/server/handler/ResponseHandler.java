@@ -3,6 +3,7 @@ package com.fishep.server.handler;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fishep.common.exception.AppException;
+import com.fishep.common.exception.ServiceError;
 import com.fishep.common.type.Result;
 import com.fishep.common.type.StatusCode;
 import com.fishep.server.annotation.CustomFormat;
@@ -30,7 +31,7 @@ public class ResponseHandler implements ResponseBodyAdvice<Object> {
             try {
                 return objectMapper.writeValueAsString(Result.success(body));
             } catch (JsonProcessingException e) {
-                throw new AppException(StatusCode.RESPONSE_PACK_ERROR.getCode(), e.getMessage());
+                throw new ServiceError(e.getMessage());
             }
         }
 

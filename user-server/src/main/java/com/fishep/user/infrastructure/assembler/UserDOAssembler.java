@@ -1,6 +1,6 @@
 package com.fishep.user.infrastructure.assembler;
 
-import com.fishep.common.exception.ClassTypeException;
+import com.fishep.common.exception.TypeException;
 import com.fishep.common.type.Email;
 import com.fishep.common.type.PhoneNumber;
 import com.fishep.user.domain.entity.Admin;
@@ -27,7 +27,7 @@ public class UserDOAssembler {
         } else if (userDO.getType().equals(UserType.SUPPLIER.toString())) {
             user = new Supplier(new UserId(userDO.getId()), new UserName(userDO.getName()));
         } else {
-            throw new ClassTypeException("Unsupported UserType, userDO.getType(): " + userDO.getType());
+            throw new TypeException("Unsupported UserType, userDO.getType(): " + userDO.getType());
         }
         if (userDO.getEmail() != null) {
             user.setEmail(new Email(userDO.getEmail()));
