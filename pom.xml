@@ -135,8 +135,8 @@
         <!--        </dependency>-->
     </dependencies>
 
+    <!--
     <profiles>
-        <!-- 本地开发环境 -->
         <profile>
             <id>dev</id>
             <properties>
@@ -146,14 +146,12 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
         </profile>
-        <!-- 远程测试环境 -->
         <profile>
             <id>test</id>
             <properties>
                 <profiles.active>test</profiles.active>
             </properties>
         </profile>
-        <!-- 远程生产环境 -->
         <profile>
             <id>prod</id>
             <properties>
@@ -183,6 +181,7 @@
             </resource>
         </resources>
     </build>
+    -->
 
     <!--
     <build>
