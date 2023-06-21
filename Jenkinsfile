@@ -25,8 +25,8 @@ pipeline {
             steps {
                 bat "docker --version"
                 bat "docker-compose --version"
-                bat "docker-compose -f docker-compose-base.yml up"
-                bat "docker-compose -f docker-compose.yml up"
+                bat "docker-compose -f docker-compose-base.yml up -d"
+                bat "docker-compose -f docker-compose.yml up -d"
             }
         }
     }
