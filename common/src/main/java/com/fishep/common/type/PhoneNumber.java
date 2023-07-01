@@ -10,7 +10,7 @@ public class PhoneNumber {
 
     public PhoneNumber(String value) {
         if (!value.matches(regex)) {
-            throw new ValidateException("PhoneNumber ValidateException: " + value);
+            throw new ValidateException(Message.__(Message.VALIDATE_EXCEPTION, new Object[]{"PhoneNumber", value}));
         }
 
         this.value = value;

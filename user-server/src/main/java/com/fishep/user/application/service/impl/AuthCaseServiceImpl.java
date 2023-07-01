@@ -12,6 +12,7 @@ import com.fishep.user.application.service.AuthCaseService;
 import com.fishep.user.domain.entity.*;
 import com.fishep.user.domain.repository.UserRepository;
 import com.fishep.user.domain.service.AuthService;
+import com.fishep.user.type.Message;
 import com.fishep.user.type.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -80,7 +81,7 @@ public class AuthCaseServiceImpl implements AuthCaseService {
 
         Boolean check = authService.check(user, token);
         if (!check) {
-            throw new ServiceException("Login fail");
+            throw new ServiceException(Message.__(Message.LOGIN_FAIL));
         }
 
         return user;
@@ -92,7 +93,7 @@ public class AuthCaseServiceImpl implements AuthCaseService {
 
         Boolean flag = userRepository.save(user);
         if (!flag) {
-            throw new ServiceException("register fail");
+            throw new ServiceException(Message.__(Message.REGISTER_FAIL));
         }
 
         String accessToken = this.createAccessToken(Guard.SHOP, user);
@@ -111,7 +112,7 @@ public class AuthCaseServiceImpl implements AuthCaseService {
         } else if (user instanceof Supplier) {
             type = UserType.SUPPLIER;
         } else {
-            throw new TypeException("User type not supported, User: ");
+            throw new TypeException(Message.__(Message.TYPE_EXCEPTION_USER, user));
         }
 
         // @TODO 生成jwt

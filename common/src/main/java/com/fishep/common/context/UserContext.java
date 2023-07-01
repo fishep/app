@@ -1,6 +1,7 @@
 package com.fishep.common.context;
 
 import com.fishep.common.exception.ServiceException;
+import com.fishep.common.type.Message;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -26,7 +27,7 @@ public class UserContext implements AutoCloseable {
 
     public void setUser(String type, String id, String name) {
         if (ctx.get() != null) {
-            throw new ServiceException("UserContext repeat setup");
+            throw new ServiceException(Message.__(Message.REPEAT_SET_USER));
         }
 
         ctx.set(new User(type, Long.valueOf(id), name));
@@ -34,7 +35,7 @@ public class UserContext implements AutoCloseable {
 
     public void setUser(String type, Long id, String name) {
         if (ctx.get() != null) {
-            throw new ServiceException("UserContext repeat setup");
+            throw new ServiceException(Message.__(Message.REPEAT_SET_USER));
         }
 
         ctx.set(new User(type, id, name));

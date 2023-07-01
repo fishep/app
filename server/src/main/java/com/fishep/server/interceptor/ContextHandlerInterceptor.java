@@ -3,6 +3,7 @@ package com.fishep.server.interceptor;
 import com.fishep.common.context.GuardContext;
 import com.fishep.common.context.UserContext;
 import com.fishep.common.exception.ServiceException;
+import com.fishep.common.type.Message;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
@@ -15,7 +16,7 @@ public class ContextHandlerInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String guard = request.getHeader("App-Guard");
         if (guard == null || guard.isEmpty()) {
-            throw new ServiceException("ContextHandlerInterceptor App-Guard is empty");
+            throw new ServiceException(Message.__(Message.GUARD_CONTEXT_NULL));
         }
         GuardContext.setCurrentGuard(guard);
 

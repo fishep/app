@@ -8,6 +8,7 @@ import com.fishep.permission.annotation.Permission;
 import com.fishep.permission.annotation.Permissions;
 import com.fishep.server.annotation.CustomFormat;
 import com.fishep.user.request.TestRequest;
+import com.fishep.user.type.Message;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -85,16 +86,26 @@ public class TestRestController {
 
     @GetMapping("/throw/exception")
     public Result testThrowException() {
-        throw new ServiceException("something is worry!, Please self check!");
+        throw new ServiceException(Message.__(Message.TEST_SERVICE_EXCEPTION));
     }
 
     @GetMapping("/throw/warn")
     public Result testThrowWarn() {
-        throw new ServiceWarn("something is worry!, Please contact the development team for inquiries!");
+        throw new ServiceWarn(Message.__(Message.TEST_SERVICE_WARN));
     }
 
     @GetMapping("/throw/error")
     public Result testThrowError() {
-        throw new ServiceError("something is worry!, Please provide feedback to the development team!");
+        throw new ServiceError(Message.__(Message.TEST_SERVICE_ERROR));
+    }
+
+    @GetMapping("/i18n/string")
+    public String localeString() {
+        return Message.__(Message.HELLO, "world");
+    }
+
+    @GetMapping("/i18n/result")
+    public Result localeResult() {
+        return Result.success(Message.__("hello", "世界"));
     }
 }

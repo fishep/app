@@ -1,6 +1,7 @@
 package com.fishep.user.domain.entity;
 
 import com.fishep.common.exception.NullException;
+import com.fishep.user.type.Message;
 
 public class Password extends Token {
 
@@ -13,7 +14,7 @@ public class Password extends Token {
 
     public Password(String value) {
         if (value == null || value.isEmpty()) {
-            throw new NullException("Password cannot be empty, value: " + value);
+            throw new NullException(Message.__(Message.NULL_PASSWORD));
         }
 
         this.value = value;

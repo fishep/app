@@ -9,6 +9,7 @@ import com.fishep.user.infrastructure.assembler.TokenDOAssembler;
 import com.fishep.user.infrastructure.assembler.UserDOAssembler;
 import com.fishep.user.infrastructure.dao.TokenDao;
 import com.fishep.user.infrastructure.data.TokenDO;
+import com.fishep.user.type.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -34,7 +35,7 @@ public class TokenRepositoryImpl implements TokenRepository {
     public Password findPassword(User user) {
         TokenDO tokenDO = passwordTokenDao.select(userDOAssembler.toUserDO(user));
         if (tokenDO == null) {
-            throw new NullException("Password is null, find by user: " + user);
+            throw new NullException(Message.__(Message.NULL_PASSWORD_FIND_BY, new Object[]{"user", user}));
         }
 
         return tokenDOAssembler.toPassword(tokenDO);
@@ -44,7 +45,7 @@ public class TokenRepositoryImpl implements TokenRepository {
     public Code findCode(User user) {
         TokenDO tokenDO = codeTokenDao.select(userDOAssembler.toUserDO(user));
         if (tokenDO == null) {
-            throw new NullException("Code is null, find by user: " + user);
+            throw new NullException(Message.__(Message.NULL_CODE_FIND_BY, new Object[]{"user", user}));
         }
 
         return tokenDOAssembler.toCode(tokenDO);

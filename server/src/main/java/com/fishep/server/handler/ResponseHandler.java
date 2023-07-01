@@ -2,10 +2,9 @@ package com.fishep.server.handler;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fishep.common.exception.AppException;
 import com.fishep.common.exception.ServiceError;
+import com.fishep.common.type.Message;
 import com.fishep.common.type.Result;
-import com.fishep.common.type.StatusCode;
 import com.fishep.server.annotation.CustomFormat;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
@@ -31,7 +30,7 @@ public class ResponseHandler implements ResponseBodyAdvice<Object> {
             try {
                 return objectMapper.writeValueAsString(Result.success(body));
             } catch (JsonProcessingException e) {
-                throw new ServiceError(e.getMessage());
+                throw new ServiceError(Message.__(Message.SERVICE_ERROR), e);
             }
         }
 

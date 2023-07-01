@@ -3,4 +3,8 @@ server:
 spring:
   application:
     name: permission-server
-
+  messages:
+    basename: i18n/common,i18n/permission-common,i18n/user-common
+    fallback-to-system-locale: off
+  web:
+    locale: en_US

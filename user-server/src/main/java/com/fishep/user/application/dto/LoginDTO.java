@@ -4,6 +4,7 @@ import com.fishep.common.exception.NullException;
 import com.fishep.common.exception.TypeException;
 import com.fishep.common.type.Email;
 import com.fishep.common.type.PhoneNumber;
+import com.fishep.user.type.Message;
 import com.fishep.user.type.UserName;
 import lombok.Data;
 
@@ -64,7 +65,7 @@ public class LoginDTO {
 
     private void checkArgument(String identity, String token) {
         if (identity == null || identity.isEmpty() || token == null || token.isEmpty()) {
-            throw new NullException("Can not be null, Identity: " + identity + ", token: " + token);
+            throw new NullException(Message.__(Message.NULL_LOGIN_DTO, new Object[]{identity, token}));
         }
     }
 
@@ -76,7 +77,7 @@ public class LoginDTO {
         } else if (identity.matches(PhoneNumber.regex)) {
             identityType = IdentityType.PhoneNumber;
         } else {
-            throw new TypeException("Unable to infer the type of Identity, Identity: " + identity);
+            throw new TypeException(Message.__(Message.TYPE_EXCEPTION_IDENTITY, identity));
         }
 
         return identityType;

@@ -66,4 +66,4 @@ docker-compose up
 - 执行 docker-compose -f docker-compose-base.yml up  启动基础服务
 - 在ide上直接运行微服务程序，debug，开发完成
 - 运行 mvn clean package -DskipTests -Pdev 打包完成，执行 java -jar example.jar, 运行微服务，验证jar包可以正常运行
-- 运行 mvn clean package -DskipTests -Ptest 打包完成， docker-compose up 在docker中启动所有服务，验证运行正常
+- 运行 mvn clean package -DskipTests -Pprod 打包完成， docker-compose up 在docker中启动所有服务，验证运行正常

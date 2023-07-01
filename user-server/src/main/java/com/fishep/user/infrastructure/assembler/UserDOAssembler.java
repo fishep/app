@@ -8,6 +8,7 @@ import com.fishep.user.domain.entity.Customer;
 import com.fishep.user.domain.entity.Supplier;
 import com.fishep.user.domain.entity.User;
 import com.fishep.user.infrastructure.data.UserDO;
+import com.fishep.user.type.Message;
 import com.fishep.user.type.UserId;
 import com.fishep.user.type.UserName;
 import com.fishep.user.type.UserType;
@@ -27,7 +28,7 @@ public class UserDOAssembler {
         } else if (userDO.getType().equals(UserType.SUPPLIER.toString())) {
             user = new Supplier(new UserId(userDO.getId()), new UserName(userDO.getName()));
         } else {
-            throw new TypeException("Unsupported UserType, userDO.getType(): " + userDO.getType());
+            throw new TypeException(Message.__(Message.TYPE_EXCEPTION_USER, userDO.getType()));
         }
         if (userDO.getEmail() != null) {
             user.setEmail(new Email(userDO.getEmail()));

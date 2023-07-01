@@ -19,11 +19,11 @@ public class Result<T> {
     }
 
     public static Result success() {
-        return new Result(StatusCode.SUCCESS.getCode(), StatusCode.SUCCESS.getMessage(), null);
+        return new Result(StatusCode.SUCCESS.getCode(), Message.__(StatusCode.SUCCESS.getMessage()), null);
     }
 
     public static <T> Result success(T data) {
-        return new Result(StatusCode.SUCCESS.getCode(), StatusCode.SUCCESS.getMessage(), data);
+        return new Result(StatusCode.SUCCESS.getCode(), Message.__(StatusCode.SUCCESS.getMessage()) , data);
     }
 
     public static <T> Result success(String message, T data) {
@@ -31,11 +31,11 @@ public class Result<T> {
     }
 
     public static Result failure() {
-        return new Result(StatusCode.FAILURE.getCode(), StatusCode.FAILURE.getMessage(), null);
+        return new Result(StatusCode.FAILURE.getCode(), Message.__(StatusCode.FAILURE.getMessage()), null);
     }
 
     public static <T> Result failure(T data) {
-        return new Result(StatusCode.FAILURE.getCode(), StatusCode.FAILURE.getMessage(), data);
+        return new Result(StatusCode.FAILURE.getCode(), Message.__(StatusCode.FAILURE.getMessage()), data);
     }
 
     public static <T> Result failure(String message, T data) {

@@ -8,6 +8,7 @@ import com.fishep.user.application.service.AuthCaseService;
 import com.fishep.user.interfaces.converter.UserVOConverter;
 import com.fishep.user.request.auth.RegisterRequest;
 import com.fishep.user.response.auth.RegisterResponse;
+import com.fishep.user.type.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,7 +31,7 @@ public class ShopRegisterController {
     @PostMapping("/register")
     public RegisterResponse register(@Validated @RequestBody RegisterRequest request) {
         if (!request.passwordConfirm()) {
-            throw new ValidateException("Password inconsistency");
+            throw new ValidateException(Message.__(Message.PASSWORD_INCONSISTENCY));
         }
 
         RegisterDTO registerDTO = new RegisterDTO(request.getName(), request.getEmail(), request.getPassword());

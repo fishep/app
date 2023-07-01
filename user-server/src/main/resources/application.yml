@@ -3,3 +3,11 @@ server:
 spring:
   application:
     name: user-server
+  messages:
+    # @TODO 各个模块加载各自的语音包，不需要配置
+    basename: i18n/common,i18n/user-common,i18n/permission-common
+    #    请求头Accept-Language错误时使用 messages.properties
+    fallback-to-system-locale: off
+  web:
+    #    默认的locale，没有请求头Accept-Language时使用
+    locale: en_US

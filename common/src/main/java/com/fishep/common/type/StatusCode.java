@@ -21,20 +21,20 @@ public enum StatusCode {
      *
      */
     //
-    SUCCESS(200, "success"),
-    FAILURE(400, "failure"),
-    SERVICE_EXCEPTION(1000, "service_exception"),
-    NULL_EXCEPTION(1001, "null_exception"),
-    TYPE_EXCEPTION(1002, "type_exception"),
-    RESPONSE_EXCEPTION(1003, "response_exception"),
-    AUTH_EXCEPTION(1004, "auth_exception"),
-    PERMISSION_EXCEPTION(1005, "permission_exception"),
-    VALIDATE_EXCEPTION(1100, "validate_exception"),
-    VALIDATE_EMAIL_EXCEPTION(1101, "validate_email_exception"),
+    SUCCESS(200, Message.SUCCESS),
+    FAILURE(400, Message.FAILURE),
+    SERVICE_EXCEPTION(1000, Message.SERVICE_EXCEPTION),
+    NULL_EXCEPTION(1001, Message.NULL_EXCEPTION),
+    TYPE_EXCEPTION(1002, Message.TYPE_EXCEPTION),
+    RESPONSE_EXCEPTION(1003, Message.RESPONSE_EXCEPTION),
+    AUTH_EXCEPTION(1004, Message.AUTH_EXCEPTION),
+    PERMISSION_EXCEPTION(1005, Message.PERMISSION_EXCEPTION),
+    VALIDATE_EXCEPTION(1100, Message.VALIDATE_EXCEPTION),
+    VALIDATE_EMAIL_EXCEPTION(1101, Message.VALIDATE_EMAIL_EXCEPTION),
     //
-    SERVICE_WARN(2000, "service_warn"),
+    SERVICE_WARN(2000, Message.SERVICE_WARN),
     //
-    SERVICE_ERROR(3000, "service_error");
+    SERVICE_ERROR(3000, Message.SERVICE_ERROR);
 
     private Integer code;
     private String message;

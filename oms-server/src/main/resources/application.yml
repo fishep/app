@@ -3,3 +3,8 @@ server:
 spring:
   application:
     name: oms-server
+  messages:
+    basename: i18n/common,i18n/user-common,i18n/permission-common
+    fallback-to-system-locale: off
+  web:
+    locale: en_US

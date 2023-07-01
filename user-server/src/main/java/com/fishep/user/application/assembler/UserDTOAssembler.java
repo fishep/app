@@ -10,6 +10,7 @@ import com.fishep.user.application.dto.UserDTO;
 import com.fishep.user.domain.entity.*;
 import com.fishep.user.domain.repository.TokenRepository;
 import com.fishep.user.domain.repository.UserRepository;
+import com.fishep.user.type.Message;
 import com.fishep.user.type.UserId;
 import com.fishep.user.type.UserName;
 import com.fishep.user.type.UserType;
@@ -32,22 +33,22 @@ public class UserDTOAssembler {
             case UserName -> user = userRepository.find(userType, new UserName(loginDTO.getIdentity()));
             case Email -> user = userRepository.find(userType, new Email(loginDTO.getIdentity()));
             case PhoneNumber -> user = userRepository.find(userType, new PhoneNumber(loginDTO.getIdentity()));
-            default -> throw new TypeException("Unknown Identity type, IdentityType: " + loginDTO.getIdentityType());
+            default -> throw new TypeException(Message.__(Message.TYPE_EXCEPTION_IDENTITY, loginDTO.getIdentityType()));
         }
 
         if (user == null) {
-            throw new NullException("User is null, find by LoginDTO: " + loginDTO);
+            throw new NullException(Message.__(Message.NULL_USER_FIND_BY, new Object[]{"loginDTO", loginDTO}));
         }
 
         Token token;
         switch (loginDTO.getTokenType()) {
             case Password -> token = tokenRepository.findPassword(user);
             case Code -> token = tokenRepository.findCode(user);
-            default -> throw new TypeException("Unknown Token type, TokenType: " + loginDTO.getTokenType());
+            default -> throw new TypeException(Message.__(Message.TYPE_EXCEPTION_TOKEN, loginDTO.getTokenType()));
         }
 
         if (token == null) {
-            throw new NullException("Token is null, find by LoginDTO: " + loginDTO);
+            throw new NullException(Message.__(Message.NULL_TOKEN_FIND_BY, new Object[]{"loginDTO", loginDTO}));
         }
 
         user.holdToken(token);
@@ -61,7 +62,7 @@ public class UserDTOAssembler {
             case ADMIN -> user = new Admin(new UserId(), new UserName(registerDTO.getName()));
             case CUSTOMER -> user = new Customer(new UserId(), new UserName(registerDTO.getName()));
             case SUPPLIER -> user = new Supplier(new UserId(), new UserName(registerDTO.getName()));
-            default -> throw new TypeException("Unknown UserType, UserType: " + userType);
+            default -> throw new TypeException(Message.__(Message.TYPE_EXCEPTION_USER, userType));
         }
         user.setEmail(new Email(registerDTO.getEmail()));
         user.holdToken(new Password(registerDTO.getPassword()));

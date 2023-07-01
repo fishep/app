@@ -2,6 +2,7 @@ package com.fishep.common.type;
 
 
 import com.fishep.common.exception.ValidateEmailException;
+import com.fishep.common.exception.ValidateException;
 
 public class Email {
 
@@ -12,7 +13,7 @@ public class Email {
 
     public Email(String value) {
         if (!value.matches(regex)) {
-            throw new ValidateEmailException(value);
+            throw new ValidateException(Message.__(Message.VALIDATE_EXCEPTION, new Object[]{"Email", value}));
         }
 
         this.value = value;

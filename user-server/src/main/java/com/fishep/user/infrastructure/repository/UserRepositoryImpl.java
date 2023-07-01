@@ -8,6 +8,7 @@ import com.fishep.user.domain.repository.UserRepository;
 import com.fishep.user.infrastructure.assembler.UserDOAssembler;
 import com.fishep.user.infrastructure.dao.UserDao;
 import com.fishep.user.infrastructure.data.UserDO;
+import com.fishep.user.type.Message;
 import com.fishep.user.type.UserId;
 import com.fishep.user.type.UserName;
 import com.fishep.user.type.UserType;
@@ -45,7 +46,7 @@ public class UserRepositoryImpl implements UserRepository {
     public User findOrException(UserType type, UserId id) {
         User user = this.find(type, id);
         if (user == null) {
-            throw new NullException("User is null, find by UserId: " + id.getValue());
+            throw new NullException(Message.__(Message.NULL_USER_FIND_BY, new Object[]{"UserId", id.getValue()}));
         }
         return user;
     }
@@ -63,7 +64,7 @@ public class UserRepositoryImpl implements UserRepository {
     public User findOrException(UserType type, UserName name) {
         User user = this.find(type, name);
         if (user == null) {
-            throw new NullException("User is null, find by UserName: " + name.getValue());
+            throw new NullException(Message.__(Message.NULL_USER_FIND_BY, new Object[]{"UserName", name.getValue()}));
         }
         return user;
     }
@@ -81,7 +82,7 @@ public class UserRepositoryImpl implements UserRepository {
     public User findOrException(UserType type, Email email) {
         User user = this.find(type, email);
         if (user == null) {
-            throw new NullException("User is null, find by Email: " + email.getValue());
+            throw new NullException(Message.__(Message.NULL_USER_FIND_BY, new Object[]{"Email", email.getValue()}));
         }
         return user;
     }
@@ -99,12 +100,12 @@ public class UserRepositoryImpl implements UserRepository {
     public User findOrException(UserType type, PhoneNumber phoneNumber) {
         User user = this.find(type, phoneNumber);
         if (user == null) {
-            throw new NullException("User is null, find by PhoneNumber: " + phoneNumber.getValue());
+            throw new NullException(Message.__(Message.NULL_USER_FIND_BY, new Object[]{"PhoneNumber", phoneNumber.getValue()}));
         }
         return user;
     }
 
-    private User doSelectAndAssembler(UserDO u){
+    private User doSelectAndAssembler(UserDO u) {
         UserDO userDO = userDao.select(u);
         if (userDO != null) {
             return userDOAssembler.toUser(userDO);

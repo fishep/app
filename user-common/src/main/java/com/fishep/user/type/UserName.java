@@ -9,7 +9,7 @@ public class UserName {
 
     public UserName(String value) {
         if (!value.matches(regex)) {
-            throw new ValidateException("UserName ValidateException: " + value);
+            throw new ValidateException(Message.__(Message.VALIDATE_EXCEPTION, new Object[]{"UserName", value}));
         }
         this.value = value;
     }

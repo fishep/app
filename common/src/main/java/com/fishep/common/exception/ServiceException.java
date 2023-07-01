@@ -1,10 +1,11 @@
 package com.fishep.common.exception;
 
+import com.fishep.common.type.Message;
 import com.fishep.common.type.StatusCode;
 
 public class ServiceException extends AppException {
     public ServiceException() {
-        super(StatusCode.SERVICE_EXCEPTION.getCode(), StatusCode.SERVICE_EXCEPTION.getMessage());
+        super(StatusCode.SERVICE_EXCEPTION.getCode(), Message.__(StatusCode.SERVICE_EXCEPTION.getMessage()));
     }
 
     public ServiceException(Throwable cause) {
@@ -19,5 +20,9 @@ public class ServiceException extends AppException {
 
     public ServiceException(Integer code, String message) {
         super(code, message);
+    }
+
+    public ServiceException(String message, Throwable cause) {
+        super(message, cause);
     }
 }

@@ -3,6 +3,7 @@ package com.fishep.erp.filter;
 import com.alibaba.fastjson.JSON;
 import com.fishep.common.exception.ServiceException;
 import com.fishep.common.type.Guard;
+import com.fishep.common.type.Message;
 import com.fishep.common.type.Result;
 import com.fishep.user.client.service.AuthService;
 import com.fishep.user.response.auth.TokenCheckResponse;
@@ -58,14 +59,14 @@ public class AuthFilter implements GlobalFilter, Ordered {
         // 不能在登录的状态下访问的路由
         if (Stream.of(unAuthRoutes).anyMatch(routeRegex -> uri.matches(routeRegex))) {
             if (token != null && !token.isEmpty()) {
-                throw new ServiceException("token is exist, please login out!");
+                throw new ServiceException(Message.__(Message.TOKEN_REPEAT));
             }
             return chain.filter(exchange);
         }
 
         // 必须在登录的状态下访问的路由
         if (token == null || token.isEmpty()) {
-            throw new ServiceException("token is not exist, please login!");
+            throw new ServiceException(Message.__(Message.TOKEN_NO));
         }
 
         ServerHttpRequest.Builder builder = request.mutate();
@@ -79,7 +80,7 @@ public class AuthFilter implements GlobalFilter, Ordered {
 
     private Mono<Void> exceptionResponse(Exception e, ServerHttpResponse response) {
         response.setStatusCode(HttpStatus.BAD_REQUEST);
-        Result<String> result = new Result<>(HttpStatus.BAD_REQUEST.value(), e.getMessage(), "gateway auth exception");
+        Result result = new Result<>(HttpStatus.BAD_REQUEST.value(), e.getMessage(), e.getStackTrace());
         DataBuffer buffer = response.bufferFactory().wrap(JSON.toJSONString(result).getBytes(StandardCharsets.UTF_8));
         response.getHeaders().add("Content-Type", "application/json;charset=UTF-8");
 

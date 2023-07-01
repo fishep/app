@@ -6,6 +6,7 @@ import com.fishep.common.exception.ServiceWarn;
 import com.fishep.common.type.Result;
 import com.fishep.common.type.StatusCode;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.NoSuchMessageException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -29,7 +30,7 @@ public class ExceptionHandler {
             this.logError(e);
         }
 
-        return new Result(e.getCode(), e.getMessage(), null);
+        return new Result(e.getCode(), e.getMessage(), e.getStackTrace());
     }
 
     /**
@@ -39,13 +40,13 @@ public class ExceptionHandler {
     @org.springframework.web.bind.annotation.ExceptionHandler({IllegalArgumentException.class})
     public Result argumentException(IllegalArgumentException e) {
         this.logWarn(e);
-        return new Result<>(StatusCode.SERVICE_WARN, e.getMessage(), null);
+        return new Result<>(StatusCode.SERVICE_WARN, e.getMessage(), e.getStackTrace());
     }
 
     @org.springframework.web.bind.annotation.ExceptionHandler({SQLIntegrityConstraintViolationException.class})
     public Result sqlException(SQLIntegrityConstraintViolationException e) {
         this.logWarn(e);
-        return new Result<>(StatusCode.SERVICE_WARN, e.getMessage(), null);
+        return new Result<>(StatusCode.SERVICE_WARN, e.getMessage(), e.getStackTrace());
     }
 
     @org.springframework.web.bind.annotation.ExceptionHandler({BindException.class})
@@ -54,6 +55,12 @@ public class ExceptionHandler {
         // 从异常对象中拿到ObjectError对象
         ObjectError objectError = e.getBindingResult().getAllErrors().get(0);
         return new Result<>(StatusCode.SERVICE_WARN, e.getMessage(), objectError);
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler({NoSuchMessageException.class})
+    public Result noSuchMessageException(NoSuchMessageException e) {
+        this.logWarn(e);
+        return new Result<>(StatusCode.SERVICE_WARN, e.getMessage(), e.getStackTrace());
     }
 
     /**
