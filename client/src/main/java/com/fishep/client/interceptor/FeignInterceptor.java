@@ -27,8 +27,6 @@ public class FeignInterceptor implements RequestInterceptor {
 //            requestTemplate.header(name, value);
 //        }
 
-        System.out.println("FeignInterceptor");
-
         // @TODO 异步的情况下，无法获取上下文
         Locale locale = LocaleContextHolder.getLocale();
         UserContext.User user = UserContext.getCurrentUser();

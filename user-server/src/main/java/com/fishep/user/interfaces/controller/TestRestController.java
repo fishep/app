@@ -24,7 +24,6 @@ public class TestRestController {
 
     @GetMapping("/api")
     public Result api() {
-        System.out.println("api(), server.port: " + port);
         return Result.success();
     }
 

@@ -42,9 +42,6 @@ public class AuthServiceFeignImpl implements AuthService {
      * @TODO 这个bug 莫名其妙的好了
      */
     public TokenCheckResponse asyncCheck(String guard, String token) {
-
-        System.out.println("asyncCheck");
-
         AuthFeign authFeign = SpringUtil.getBean(AuthFeign.class);
         Locale locale = LocaleContextHolder.getLocale();
 

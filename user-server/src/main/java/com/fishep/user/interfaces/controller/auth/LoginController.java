@@ -29,8 +29,6 @@ public class LoginController {
     // 登录
     @PostMapping("/")
     public LoginResponse login(@Validated @RequestBody LoginRequest request) {
-        System.out.println("login");
-
         LoginDTO loginDTO = new LoginDTO(request.getIdentity(), request.getToken());
 
         UserDTO userDTO = authCaseService.login(loginDTO);
@@ -41,8 +39,6 @@ public class LoginController {
     // 密码登录
     @PostMapping("/passwordLogin")
     public LoginResponse passwordLogin(@Validated @RequestBody PasswordLoginRequest request) {
-        System.out.println("passwordLogin");
-
         LoginDTO loginDTO = new LoginDTO(request.getIdentity(), request.getToken(), LoginDTO.TokenType.Password);
 
         UserDTO userDTO = authCaseService.login(loginDTO);
@@ -53,8 +49,6 @@ public class LoginController {
     // 验证码登录
     @PostMapping("/codeLogin")
     public LoginResponse codeLogin(@Validated @RequestBody CodeLoginRequest request) {
-        System.out.println("codeLogin");
-
         LoginDTO loginDTO = new LoginDTO(request.getIdentity(), request.getToken(), LoginDTO.TokenType.Code);
 
         UserDTO userDTO = authCaseService.login(loginDTO);

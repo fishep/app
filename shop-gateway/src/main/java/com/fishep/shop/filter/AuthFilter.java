@@ -7,7 +7,6 @@ import com.fishep.common.type.Message;
 import com.fishep.common.type.Result;
 import com.fishep.user.client.service.AuthService;
 import com.fishep.user.response.auth.TokenCheckResponse;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -26,7 +25,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.stream.Stream;
 
 @Component
-@Slf4j
 public class AuthFilter implements GlobalFilter, Ordered {
 
     @Value("${shop.route.un-auth}")
@@ -40,7 +38,6 @@ public class AuthFilter implements GlobalFilter, Ordered {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        log.info("AuthFilter filter request");
         try {
             return auth(exchange, chain);
         } catch (Exception e) {

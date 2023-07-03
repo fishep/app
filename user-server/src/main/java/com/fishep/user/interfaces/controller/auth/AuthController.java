@@ -16,7 +16,6 @@ public class AuthController {
 
     @PostMapping("/token/check")
     public TokenCheckResponse check(@RequestHeader("App-Guard") String AppGuard, @RequestHeader("Authorization") String authorization) {
-        System.out.println("AuthController.check(), server.port: " + port);
 
 //        @TODO 校验 jwt
 //        String jwt = "ver:1"; // jwt 版本号，如果希望以前发布的失效，把数字加1

@@ -25,8 +25,6 @@ public class UserFeignConfig {
     @Bean
     @ConditionalOnMissingBean
     public HttpMessageConverters httpMessageConverters(ObjectProvider<HttpMessageConverter<?>> converters) {
-        System.out.println("httpMessageConverters");
-
         return new HttpMessageConverters(converters.orderedStream().collect(Collectors.toList()));
     }
 

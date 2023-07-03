@@ -5,7 +5,6 @@ import com.fishep.common.exception.ServiceWarn;
 import com.fishep.common.type.Guard;
 import com.fishep.common.type.Message;
 import com.fishep.common.type.Result;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
@@ -25,13 +24,11 @@ import java.nio.charset.StandardCharsets;
  * @Date 2023/5/18 11:55
  * @Desc
  **/
-@Slf4j
 @Component
 public class HeaderFilter implements GlobalFilter, Ordered {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        log.info("OpenGlobalFilter filter request");
         try {
             return attachGlobalHttpHeaders(exchange, chain);
         } catch (Exception e) {

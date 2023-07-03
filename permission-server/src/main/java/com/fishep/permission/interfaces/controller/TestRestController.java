@@ -21,28 +21,24 @@ public class TestRestController {
 
     @GetMapping("/api")
     public Result api() {
-        System.out.println("server.port: " + port);
         return Result.success();
     }
 
     @GetMapping("/feign")
     public String feign() {
         String ret = testService.api();
-        System.out.println("testFeign.api(): " + ret);
         return ret;
     }
 
     @GetMapping("/feign/permission")
     public String feignPermission() {
         String ret = testService.apiPermission();
-        System.out.println("testFeign.apiPermission(): " + ret);
         return ret;
     }
 
     @GetMapping("/permission/check")
     @Permission("permission.test.permission.check")
     public String permission() {
-        System.out.println("Permission verification passed!");
         return "权限校验通过";
     }
 }

@@ -41,8 +41,6 @@ public class PermissionAspect {
     }
 
     private void check(Permissions permissions) {
-        System.out.println("check Permissions: " + permissions.value());
-
         String[] ps = currentUserPermissions();
         if (permissions.value().length > 0) {
             for (Permission p : permissions.value()) {
@@ -62,8 +60,6 @@ public class PermissionAspect {
     }
 
     private void check(Permission permission) {
-        System.out.println("check Permissions: " + permission.value());
-
         String[] ps = currentUserPermissions();
         if (!Arrays.asList(ps).contains(permission.value())) {
             throw new PermissionException(Message.__(Message.REQUIRED_PERMISSION, permission.value()));
