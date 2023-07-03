@@ -3,3 +3,7 @@ server:
 spring:
   application:
     name: open-gateway
+  messages:
+    basename: i18n/common
+  web:
+    locale: en_US

@@ -5,13 +5,9 @@ import com.fishep.common.exception.ServiceWarn;
 import com.fishep.common.type.Guard;
 import com.fishep.common.type.Message;
 import com.fishep.common.type.Result;
-import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
-import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.context.i18n.SimpleLocaleContext;
 import org.springframework.core.Ordered;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpHeaders;
@@ -23,7 +19,6 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 import java.nio.charset.StandardCharsets;
-import java.util.Locale;
 
 /**
  * @Author Fly.Fei
@@ -32,27 +27,12 @@ import java.util.Locale;
  **/
 @Slf4j
 @Component
-public class ERPGlobalFilter implements GlobalFilter, Ordered {
-
-    @Value("${spring.web.locale:#{null}}")
-    private String locale;
-
-    @PostConstruct
-    public void setDefaultLocale() {
-        if (locale != null && locale.equals("zh_CN")) {
-            Locale.setDefault(Locale.SIMPLIFIED_CHINESE);
-            return;
-        }
-
-        Locale.setDefault(Locale.US);
-    }
+public class HeaderFilter implements GlobalFilter, Ordered {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         log.info("ERPGlobalFilter filter request");
         try {
-            setLocaleContext(exchange, chain);
-
             return attachGlobalHttpHeaders(exchange, chain);
         } catch (Exception e) {
             return exceptionResponse(e, exchange.getResponse());
@@ -61,25 +41,7 @@ public class ERPGlobalFilter implements GlobalFilter, Ordered {
 
     @Override
     public int getOrder() {
-        return 0;
-    }
-
-    private void setLocaleContext(ServerWebExchange exchange, GatewayFilterChain chain) {
-
-//         @TODO 需要清理LocaleContextHolder, 哪里有结束的回调清理会更好
-        LocaleContextHolder.resetLocaleContext();
-
-        String locale = exchange.getRequest().getHeaders().getFirst("Accept-Language");
-
-        if (locale != null && locale.equals("zh-CN")) {
-            LocaleContextHolder.setLocaleContext(new SimpleLocaleContext(Locale.SIMPLIFIED_CHINESE));
-            return;
-        }
-
-        if (locale != null && locale.equals("en-US")) {
-            LocaleContextHolder.setLocaleContext(new SimpleLocaleContext(Locale.US));
-            return;
-        }
+        return 1;
     }
 
     private Mono<Void> attachGlobalHttpHeaders(ServerWebExchange exchange, GatewayFilterChain chain) {

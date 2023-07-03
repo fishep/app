@@ -6,7 +6,7 @@ spring:
   messages:
     basename: i18n/common
   web:
-    locale: en_US
+    locale: zh_CN
 erp:
   # uri正则表达式, 多条规则, 规则之间用逗号隔开, example: '/api/user/auth/register, /api/user/auth/login/.*'
   route:

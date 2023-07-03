@@ -5,7 +5,10 @@ import com.fishep.common.context.UserContext;
 import com.fishep.common.type.Guard;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Component;
+
+import java.util.Locale;
 //import org.springframework.web.context.request.RequestContextHolder;
 //import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -26,6 +29,8 @@ public class FeignInterceptor implements RequestInterceptor {
 
         System.out.println("FeignInterceptor");
 
+        // @TODO 异步的情况下，无法获取上下文
+        Locale locale = LocaleContextHolder.getLocale();
         UserContext.User user = UserContext.getCurrentUser();
         Guard guard = GuardContext.getCurrentGuard();
         requestTemplate.header("App-Guard", guard == null ? null : guard.toString());
@@ -33,6 +38,6 @@ public class FeignInterceptor implements RequestInterceptor {
         requestTemplate.header("App-User-Id", user == null ? null : String.valueOf(user.getId()));
         requestTemplate.header("App-User-Name", user == null ? null : user.getName());
         requestTemplate.header("Accept", "application/json, text/plain, */*");
-//        requestTemplate.header("Accept-Language", "zh-CN");
+        requestTemplate.header("Accept-Language", locale.toLanguageTag());
     }
 }

@@ -1,4 +1,4 @@
-package com.fishep.open.filter;
+package com.fishep.shop.filter;
 
 import com.alibaba.fastjson.JSON;
 import com.fishep.common.exception.ServiceWarn;
@@ -27,11 +27,11 @@ import java.nio.charset.StandardCharsets;
  **/
 @Slf4j
 @Component
-public class OpenGlobalFilter implements GlobalFilter, Ordered {
+public class HeaderFilter implements GlobalFilter, Ordered {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        log.info("OpenGlobalFilter filter request");
+        log.info("ShopGlobalFilter filter request");
         try {
             return attachGlobalHttpHeaders(exchange, chain);
         } catch (Exception e) {
@@ -41,7 +41,7 @@ public class OpenGlobalFilter implements GlobalFilter, Ordered {
 
     @Override
     public int getOrder() {
-        return 0;
+        return 1;
     }
 
     private Mono<Void> attachGlobalHttpHeaders(ServerWebExchange exchange, GatewayFilterChain chain) {
@@ -64,7 +64,7 @@ public class OpenGlobalFilter implements GlobalFilter, Ordered {
 
         // 设置全局请求头
         ServerHttpRequest.Builder builder = request.mutate();
-        builder.header("App-Guard", Guard.OPEN.toString());
+        builder.header("App-Guard", Guard.SHOP.toString());
 
         return chain.filter(exchange.mutate().request(builder.build()).build());
     }

@@ -26,9 +26,7 @@
     </appender>
 
     <springProfile name="dev">
-        <logger name="com.fishep.permission" level="INFO">
-            <appender-ref ref="CONSOLE"/>
-        </logger>
+        <logger name="com.fishep.permission" level="INFO"/>
     </springProfile>
     <springProfile name="test">
         <logger name="com.fishep.permission" level="INFO"/>
@@ -38,6 +36,7 @@
     </springProfile>
 
     <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
         <appender-ref ref="FILE"/>
     </root>
 </configuration>

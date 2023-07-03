@@ -33,6 +33,7 @@ public class Message {
     public static final String PROHIBIT_HEADER_APP_USER_NAME = "prohibit.header.app.user.name";
     public static final String GUARD_CONTEXT_MISMATCH = "guard.context.mismatch";
     public static final String GUARD_CONTEXT_NULL = "guard.context.null";
+    public static final String FALLBACK = "fallback";
 
     public static String __(String key) {
         return SpringUtil.getBean(MessageSource.class).getMessage(key, null, key, LocaleContextHolder.getLocale());

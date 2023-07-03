@@ -7,8 +7,10 @@ import com.fishep.user.client.feign.AuthFeign;
 import com.fishep.user.client.service.AuthService;
 import com.fishep.user.response.auth.TokenCheckResponse;
 import com.fishep.user.type.Message;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Component;
 
+import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
 
 @Component
@@ -23,7 +25,7 @@ public class AuthServiceFeignImpl implements AuthService {
     public TokenCheckResponse syncCheck(String guard, String token) {
         AuthFeign authFeign = SpringUtil.getBean(AuthFeign.class);
 
-        Result<TokenCheckResponse> result = authFeign.check(guard, token);
+        Result<TokenCheckResponse> result = authFeign.check(guard, token, null);
         if (result == null || result.getData() == null) {
             throw new ServiceException(Message.__(Message.AUTHENTICATION_FAILED));
         }
@@ -44,9 +46,10 @@ public class AuthServiceFeignImpl implements AuthService {
         System.out.println("asyncCheck");
 
         AuthFeign authFeign = SpringUtil.getBean(AuthFeign.class);
+        Locale locale = LocaleContextHolder.getLocale();
 
         Result<TokenCheckResponse> result;
-        CompletableFuture<Result<TokenCheckResponse>> future = CompletableFuture.supplyAsync(() -> authFeign.check(guard, token));
+        CompletableFuture<Result<TokenCheckResponse>> future = CompletableFuture.supplyAsync(() -> authFeign.check(guard, token, locale.toLanguageTag()));
         try {
             result = future.get();
         } catch (Exception e) {
