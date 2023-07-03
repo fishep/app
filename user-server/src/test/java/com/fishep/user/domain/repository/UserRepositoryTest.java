@@ -25,13 +25,13 @@ class UserRepositoryTest {
     @Test
     void find() {
         assertNotNull(userRepository.find(UserType.ADMIN, new UserId(1l)));
-        assertNotNull(userRepository.find(UserType.ADMIN, new UserName("test")));
-        assertNotNull(userRepository.find(UserType.ADMIN, new Email("test@email.com")));
+        assertNotNull(userRepository.find(UserType.ADMIN, new UserName("root")));
+        assertNotNull(userRepository.find(UserType.ADMIN, new Email("root@email.com")));
         assertNotNull(userRepository.find(UserType.ADMIN, new PhoneNumber("16888888888")));
 
         assertNull(userRepository.find(UserType.ADMIN, new UserId(2l)));
-        assertNull(userRepository.find(UserType.ADMIN, new UserName("test.test")));
-        assertNull(userRepository.find(UserType.ADMIN, new Email("test.test@email.com")));
+        assertNull(userRepository.find(UserType.ADMIN, new UserName("root.root")));
+        assertNull(userRepository.find(UserType.ADMIN, new Email("root.root@email.com")));
         assertNull(userRepository.find(UserType.ADMIN, new PhoneNumber("17000000000")));
     }
 
@@ -41,10 +41,10 @@ class UserRepositoryTest {
             userRepository.findOrException(UserType.ADMIN, new UserId(1l));
         });
         assertDoesNotThrow(() -> {
-            userRepository.findOrException(UserType.ADMIN, new UserName("test"));
+            userRepository.findOrException(UserType.ADMIN, new UserName("root"));
         });
         assertDoesNotThrow(() -> {
-            userRepository.findOrException(UserType.ADMIN, new Email("test@email.com"));
+            userRepository.findOrException(UserType.ADMIN, new Email("root@email.com"));
         });
         assertDoesNotThrow(() -> {
             userRepository.findOrException(UserType.ADMIN, new PhoneNumber("16888888888"));
@@ -54,10 +54,10 @@ class UserRepositoryTest {
             userRepository.findOrException(UserType.ADMIN, new UserId(2l));
         });
         assertThrows(NullException.class, () -> {
-            userRepository.findOrException(UserType.ADMIN, new UserName("test.test"));
+            userRepository.findOrException(UserType.ADMIN, new UserName("root.root"));
         });
         assertThrows(NullException.class, () -> {
-            userRepository.findOrException(UserType.ADMIN, new Email("test.test@email.com"));
+            userRepository.findOrException(UserType.ADMIN, new Email("root.root@email.com"));
         });
         assertThrows(NullException.class, () -> {
             userRepository.findOrException(UserType.ADMIN, new PhoneNumber("17000000000"));

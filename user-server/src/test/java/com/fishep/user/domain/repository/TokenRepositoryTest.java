@@ -24,7 +24,7 @@ class TokenRepositoryTest {
 
     @BeforeEach
     public void setUp() {
-        user1 = new Admin(new UserId(1l), new UserName("test"));
+        user1 = new Admin(new UserId(1l), new UserName("root"));
         user2 = new Admin(new UserId(2l), new UserName("aaa"));
     }
 

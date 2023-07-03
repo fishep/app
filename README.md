@@ -13,7 +13,7 @@
 - data-server          基础数据模块      port: 9010 - 9019  REDIS_DATABASE:1
 - user-server          用户管理模块      port: 9020 - 9029  REDIS_DATABASE:2
 - permission-server    权限管理模块      port: 9030 - 9039  REDIS_DATABASE:3
-- erp-server           企业资源管理      port: 9040 - 9049  REDIS_DATABASE:4
+- ems-server           企业管理模块      port: 9040 - 9049  REDIS_DATABASE:4
 - crm-server           客户管理模块      port: 9050 - 9059  REDIS_DATABASE:5
 - pdt-server           产品管理模块      port: 9060 - 9069  REDIS_DATABASE:6
 - oms-server           订单管理模块      port: 9070 - 9079  REDIS_DATABASE:7

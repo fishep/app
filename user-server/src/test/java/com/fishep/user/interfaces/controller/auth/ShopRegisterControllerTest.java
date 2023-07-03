@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @Date 2023/5/26 11:14
  * @Desc
  **/
+@Transactional
 @SpringBootTest
 @AutoConfigureMockMvc
 class ShopRegisterControllerTest {

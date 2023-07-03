@@ -55,13 +55,13 @@ class TokenDaoTest {
 
     @Test
     void select2() {
-        userDO.setName("test");
+        userDO.setName("root");
         assertNotNull(passwordTokenDao.select(userDO));
     }
 
     @Test
     void select3() {
-        userDO.setEmail("test@email.com");
+        userDO.setEmail("root@email.com");
         assertNotNull(passwordTokenDao.select(userDO));
     }
 

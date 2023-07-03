@@ -44,13 +44,13 @@ class PasswordDaoMybatisImplTest {
 
     @Test
     void select2() {
-        userDO.setName("test");
+        userDO.setName("root");
         assertNotNull(tokenDao.select(userDO));
     }
 
     @Test
     void select3() {
-        userDO.setEmail("test@email.com");
+        userDO.setEmail("root@email.com");
         assertNotNull(tokenDao.select(userDO));
     }
 

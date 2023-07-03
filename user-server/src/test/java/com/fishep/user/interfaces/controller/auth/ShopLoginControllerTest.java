@@ -38,7 +38,7 @@ class ShopLoginControllerTest {
     @BeforeEach
     public void setUp() {
         Map<String, String> request = new HashMap<>();
-        request.put("identity", "test");
+        request.put("identity", "root");
         request.put("token", "12345678");
 
         requestJson1 = JSONObject.toJSONString(request);

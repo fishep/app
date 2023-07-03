@@ -34,10 +34,10 @@ explain SELECT * FROM users PARTITION (p2) WHERE `type` = 'ADMIN';
 select * from information_schema.PARTITIONS where TABLE_SCHEMA = "user" and TABLE_NAME = "users";
 
 select * from users;
-insert into `users`(`type`, `id`, `name`, `email`, `phone_number`, `password`, `created_at`) VALUES ("ADMIN", 1, "test", "test@email.com", "16888888888", "hash12345678", 1681987720955);
-insert into `users`(`type`, `id`, `name`, `email`, `phone_number`, `password`, `created_at`) VALUES ("ADMIN", 2, "test2", "test2@email.com", "16888888882", "hash12345678", 1681987720955);
-insert into `users`(`type`, `id`, `name`, `email`, `phone_number`, `password`, `created_at`) VALUES ("CUSTOMER", 1, "test", "test@email.com", "16888888888", "hash12345678", 1681987720955);
-insert into `users`(`type`, `id`, `name`, `email`, `phone_number`, `password`, `created_at`) VALUES ("CUSTOMER", 2, "test2", "test2@email.com", "16888888882", "hash12345678", 1681987720955);
+insert into `users`(`type`, `id`, `name`, `email`, `phone_number`, `password`, `created_at`) VALUES ("ADMIN", 1, "root", "root@email.com", "16888888888", "hash12345678", 1681987720955);
+insert into `users`(`type`, `id`, `name`, `email`, `phone_number`, `password`, `created_at`) VALUES ("ADMIN", 2, "root2", "root2@email.com", "16888888882", "hash12345678", 1681987720955);
+insert into `users`(`type`, `id`, `name`, `email`, `phone_number`, `password`, `created_at`) VALUES ("CUSTOMER", 1, "root", "root@email.com", "16888888888", "hash12345678", 1681987720955);
+insert into `users`(`type`, `id`, `name`, `email`, `phone_number`, `password`, `created_at`) VALUES ("CUSTOMER", 2, "root2", "root2@email.com", "16888888882", "hash12345678", 1681987720955);
 
 update `users` set `email`="userupdated@email.com", `phone_number`="10087", `updated_at`=1664183128 where `id` = 2;
 update `users` set `email`="userupdated@email.com", `phone_number`="10087", `updated_at`=1664183128 where `type` = "ADMIN" and `id` = 2;

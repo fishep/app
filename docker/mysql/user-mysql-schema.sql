@@ -35,5 +35,5 @@ CREATE TABLE `users`
     PARTITION p2 VALUES IN ('SUPPLIER')
     );
 
-insert into `users`(`type`, `id`, `name`, `email`, `phone_number`, `password`, `created_at`) VALUES ("ADMIN", 1, "test", "test@email.com", "16888888888", "hash12345678", 1681987720955);
-insert into `users`(`type`, `id`, `name`, `email`, `phone_number`, `password`, `created_at`) VALUES ("CUSTOMER", 1, "test", "test@email.com", "16888888888", "hash12345678", 1681987720955);
+insert into `users`(`type`, `id`, `name`, `email`, `phone_number`, `password`, `created_at`) VALUES ("ADMIN", 1, "root", "root@email.com", "16888888888", "hash12345678", 1681987720955);
+insert into `users`(`type`, `id`, `name`, `email`, `phone_number`, `password`, `created_at`) VALUES ("CUSTOMER", 1, "root", "root@email.com", "16888888888", "hash12345678", 1681987720955);
