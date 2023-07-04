@@ -1,4 +1,4 @@
-package com.fishep.permission.api;
+package com.fishep.permission.contract;
 
 /**
  * @Author Fly.Fei

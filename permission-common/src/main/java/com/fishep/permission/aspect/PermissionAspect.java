@@ -4,7 +4,7 @@ import com.fishep.common.context.UserContext;
 import com.fishep.common.exception.PermissionException;
 import com.fishep.permission.annotation.Permission;
 import com.fishep.permission.annotation.Permissions;
-import com.fishep.permission.api.PermissionProvider;
+import com.fishep.permission.contract.PermissionProvider;
 import com.fishep.permission.type.Message;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;

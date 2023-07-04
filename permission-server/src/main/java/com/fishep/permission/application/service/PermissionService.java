@@ -1,6 +1,6 @@
 package com.fishep.permission.application.service;
 
-import com.fishep.permission.api.PermissionProvider;
+import com.fishep.permission.contract.PermissionProvider;
 
 /**
  * @Author Fly.Fei
