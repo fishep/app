@@ -28,7 +28,8 @@ public class TokenRepositoryImpl implements TokenRepository {
     private TokenDao codeTokenDao;
 
     @Autowired
-    @Qualifier("PasswordDaoMybatisImpl")
+    @Qualifier("PasswordDaoMybatisPlusImpl")
+//    @Qualifier("PasswordDaoMybatisImpl")
     private TokenDao passwordTokenDao;
 
     @Override

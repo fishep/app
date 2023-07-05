@@ -1,8 +1,10 @@
 package com.fishep.user.infrastructure.data;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 @Data
+@TableName("users")
 public class UserDO {
 
     private Long id;

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.Instant;
 
-@Component
+//@Component
 public class UserDaoMybatisImpl implements UserDao {
 
     @Autowired

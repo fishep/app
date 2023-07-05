@@ -44,7 +44,9 @@
         <hutool.version>5.8.16</hutool.version>
         <hibernate.validator.version>8.0.0.Final</hibernate.validator.version>
         <spring.boot.thin.layout.version>1.0.28.RELEASE</spring.boot.thin.layout.version>
-        <mybatis.version>3.0.1</mybatis.version>
+        <mybatis.version>3.5.11</mybatis.version>
+        <mybatis.spring.version>3.0.1</mybatis.spring.version>
+        <mybatis.plus.version>3.5.3.1</mybatis.plus.version>
         <springdoc.version>2.1.0</springdoc.version>
         <!-- dubbo 版本不兼容 -->
         <dubbo.version>2021.1</dubbo.version>
@@ -88,12 +90,22 @@
             <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter</artifactId>
-                <version>${mybatis.version}</version>
+                <version>${mybatis.spring.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter-test</artifactId>
-                <version>${mybatis.version}</version>
+                <version>${mybatis.spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis.plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter-test</artifactId>
+                <version>${mybatis.plus.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>

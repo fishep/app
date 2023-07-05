@@ -21,7 +21,8 @@ class TokenDaoTest {
     private TokenDao codeTokenDao;
 
     @Autowired
-    @Qualifier("PasswordDaoMybatisImpl")
+    @Qualifier("PasswordDaoMybatisPlusImpl")
+//    @Qualifier("PasswordDaoMybatisImpl")
     private TokenDao passwordTokenDao;
 
     private UserDO userDO;
