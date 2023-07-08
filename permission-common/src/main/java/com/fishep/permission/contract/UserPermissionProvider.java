@@ -5,8 +5,8 @@ package com.fishep.permission.contract;
  * @Date 2023/5/29 15:06
  * @Desc
  **/
-public interface PermissionProvider {
+public interface UserPermissionProvider {
 
-    String[] currentUserPermissions();
+    String[] contextUserPermissions();
 
 }

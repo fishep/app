@@ -29,7 +29,7 @@ class UserRepositoryTest {
         assertNotNull(userRepository.find(UserType.ADMIN, new Email("root@email.com")));
         assertNotNull(userRepository.find(UserType.ADMIN, new PhoneNumber("16888888888")));
 
-        assertNull(userRepository.find(UserType.ADMIN, new UserId(2l)));
+        assertNull(userRepository.find(UserType.ADMIN, new UserId(1000l)));
         assertNull(userRepository.find(UserType.ADMIN, new UserName("root.root")));
         assertNull(userRepository.find(UserType.ADMIN, new Email("root.root@email.com")));
         assertNull(userRepository.find(UserType.ADMIN, new PhoneNumber("17000000000")));
@@ -51,7 +51,7 @@ class UserRepositoryTest {
         });
 
         assertThrows(NullException.class, () -> {
-            userRepository.findOrException(UserType.ADMIN, new UserId(2l));
+            userRepository.findOrException(UserType.ADMIN, new UserId(1000l));
         });
         assertThrows(NullException.class, () -> {
             userRepository.findOrException(UserType.ADMIN, new UserName("root.root"));

@@ -4,7 +4,8 @@ import com.fishep.common.context.UserContext;
 import com.fishep.common.exception.PermissionException;
 import com.fishep.permission.annotation.Permission;
 import com.fishep.permission.annotation.Permissions;
-import com.fishep.permission.contract.PermissionProvider;
+import com.fishep.common.context.UserPermissionContext;
+import com.fishep.permission.contract.UserPermissionProvider;
 import com.fishep.permission.type.Message;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -18,7 +19,7 @@ import java.util.Arrays;
 public class PermissionAspect {
 
     @Autowired
-    private PermissionProvider permissionProvider;
+    private UserPermissionProvider userPermissionProvider;
 
     @Before("@annotation(permission)")
     public void permission(Permission permission) {
@@ -72,7 +73,14 @@ public class PermissionAspect {
             throw new PermissionException(Message.__(Message.CURRENT_USER_DOES_NOT_EXIST));
         }
 
-//        return new String[]{"user.test.api.permission.apiPermission", "oms.order.admin.orders.create"};
-        return permissionProvider.currentUserPermissions();
+        if (UserPermissionContext.get() != null) {
+            return UserPermissionContext.get();
+        }
+
+        String[] ps = userPermissionProvider.contextUserPermissions();
+
+        UserPermissionContext.set(ps);
+
+        return ps;
     }
 }

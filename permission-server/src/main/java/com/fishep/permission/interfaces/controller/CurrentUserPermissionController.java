@@ -22,7 +22,7 @@ public class CurrentUserPermissionController {
 
     @GetMapping("/permissions")
     public String[] currentUserPermissions() {
-        return permissionService.currentUserPermissions();
+        return permissionService.contextUserPermissions();
     }
 
 }

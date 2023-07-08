@@ -2,6 +2,7 @@ package com.fishep.server.interceptor;
 
 import com.fishep.common.context.GuardContext;
 import com.fishep.common.context.UserContext;
+import com.fishep.common.context.UserPermissionContext;
 import com.fishep.common.exception.ServiceException;
 import com.fishep.common.type.Message;
 import jakarta.servlet.http.HttpServletRequest;
@@ -40,6 +41,7 @@ public class ContextHandlerInterceptor implements HandlerInterceptor {
 
         UserContext.closeUserContext();
         GuardContext.closeGuardContext();
+        UserPermissionContext.remove();
 
         HandlerInterceptor.super.afterCompletion(request, response, handler, ex);
     }

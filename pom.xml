@@ -47,6 +47,7 @@
         <mybatis.version>3.5.11</mybatis.version>
         <mybatis.spring.version>3.0.1</mybatis.spring.version>
         <mybatis.plus.version>3.5.3.1</mybatis.plus.version>
+        <mybatis.plus.join.version>1.4.5</mybatis.plus.join.version>
         <springdoc.version>2.1.0</springdoc.version>
         <!-- dubbo 版本不兼容 -->
         <dubbo.version>2021.1</dubbo.version>
@@ -106,6 +107,11 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter-test</artifactId>
                 <version>${mybatis.plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.yulichang</groupId>
+                <artifactId>mybatis-plus-join-boot-starter</artifactId>
+                <version>${mybatis.plus.join.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>

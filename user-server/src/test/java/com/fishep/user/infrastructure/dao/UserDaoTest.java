@@ -24,7 +24,7 @@ class UserDaoTest {
     public void setUp() {
         userDO = new UserDO();
         userDO.setType(UserType.ADMIN.toString());
-        userDO.setId(2l);
+        userDO.setId(1000l);
         userDO.setName("zhangsan");
         userDO.setEmail("zhangsan@email.com");
         userDO.setPhoneNumber("16888888811");

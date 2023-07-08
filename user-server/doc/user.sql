@@ -9,11 +9,11 @@ show tables;
 drop table if exists `users`;
 create table `users`
 (
-    `type`         varchar(16) not null comment '用户类型，ADMIN：管理员，公司内部用户；CUSTOMER：客户，任何在商城注册的用户；SUPPLIER：供应商，公司的供应商。',
+    `type`         varchar(15) not null comment '用户类型，ADMIN：管理员，公司内部用户；CUSTOMER：客户，任何在商城注册的用户；SUPPLIER：供应商，公司的供应商。',
     `id`           bigint      not null comment 'id',
-    `name`         varchar(64) not null comment '用户名',
-    `email`        varchar(64)          default null comment '邮箱',
-    `phone_number` varchar(64)          default null comment '电话号码',
+    `name`         varchar(63) not null comment '用户名',
+    `email`        varchar(63)          default null comment '邮箱',
+    `phone_number` varchar(63)          default null comment '电话号码',
     `password`     varchar(255)         default null comment '密码',
     `created_at`   bigint      not null default 0 comment '创建时间',
     `updated_at`   bigint      not null default 0 comment '更新时间',
