@@ -1,14 +1,14 @@
 package com.fishep.permission.infrastructure.mapper;
 
-import com.fishep.permission.infrastructure.data.PermissionDO;
+import com.fishep.permission.infrastructure.data.UserRoleDO;
 import com.github.yulichang.base.MPJBaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
  * @Author fly.fei
- * @Date 2023/7/7 10:19
+ * @Date 2023/7/8 11:37
  * @Desc
  **/
 @Mapper
-public interface PermissionMapper extends MPJBaseMapper<PermissionDO> {
+public interface UserRoleMapper extends MPJBaseMapper<UserRoleDO> {
 }

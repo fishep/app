@@ -2,6 +2,8 @@ package com.fishep.permission.infrastructure.dao;
 
 import com.fishep.permission.infrastructure.data.PermissionDO;
 
+import java.util.List;
+
 /**
  * @Author fly.fei
  * @Date 2023/7/7 10:16
@@ -17,4 +19,5 @@ public interface PermissionDao {
 
     PermissionDO select(PermissionDO p);
 
+    List<PermissionDO> getUserPermission(String userType, Long userId, String guard);
 }

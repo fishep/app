@@ -15,6 +15,10 @@ import org.springframework.web.servlet.ModelAndView;
 public class ContextHandlerInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+
+        // 清理上下文，确保万无一失 （其实这里可以不用执行）
+        contextClear();
+
         String guard = request.getHeader("App-Guard");
         if (guard == null || guard.isEmpty()) {
             throw new ServiceException(Message.__(Message.GUARD_CONTEXT_NULL));
@@ -39,10 +43,14 @@ public class ContextHandlerInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
 
+        contextClear();
+
+        HandlerInterceptor.super.afterCompletion(request, response, handler, ex);
+    }
+
+    private void contextClear() throws Exception {
         UserContext.closeUserContext();
         GuardContext.closeGuardContext();
         UserPermissionContext.remove();
-
-        HandlerInterceptor.super.afterCompletion(request, response, handler, ex);
     }
 }

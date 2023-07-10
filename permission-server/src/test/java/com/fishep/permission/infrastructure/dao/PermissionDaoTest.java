@@ -1,41 +1,29 @@
-package com.fishep.permission.infrastructure.dao.impl;
+package com.fishep.permission.infrastructure.dao;
 
-import com.baomidou.mybatisplus.test.autoconfigure.MybatisPlusTest;
 import com.fishep.common.type.Guard;
 import com.fishep.common.type.Locale;
 import com.fishep.common.type.Module;
-import com.fishep.permission.infrastructure.dao.PermissionDao;
 import com.fishep.permission.infrastructure.data.PermissionDO;
-import com.fishep.permission.infrastructure.mapper.PermissionMapper;
-import com.fishep.permission.infrastructure.mapper.UserRoleMapper;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.test.annotation.Rollback;
-import org.springframework.test.util.ReflectionTestUtils;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.Instant;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @Author fly.fei
- * @Date 2023/7/7 14:35
+ * @Date 2023/7/10 14:53
  * @Desc
  **/
-@MybatisPlusTest
-@Rollback(value = false)
+@SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-class PermissionDaoMybatisPlusImplTest {
+class PermissionDaoTest {
 
     @Autowired
-    private PermissionMapper permissionMapper;
-
-    @Autowired
-    private UserRoleMapper userRoleMapper;
-
     private PermissionDao permissionDao;
 
     private PermissionDO permissionDO;
@@ -50,10 +38,6 @@ class PermissionDaoMybatisPlusImplTest {
         permissionDO.setLocale(new Locale("test", "测试权限"));
         permissionDO.setComment("this is a test");
         permissionDO.setCreatedAt(Instant.now().toEpochMilli());
-
-        permissionDao = new PermissionDaoMybatisPlusImpl();
-        ReflectionTestUtils.setField(permissionDao, "permissionMapper", permissionMapper);
-        ReflectionTestUtils.setField(permissionDao, "userRoleMapper", userRoleMapper);
     }
 
     @Test
@@ -83,7 +67,11 @@ class PermissionDaoMybatisPlusImplTest {
     @Test
     @Order(5)
     void getUserPermission() {
-        //
-//        assertNotNull(permissionDao.getUserPermission("ADMIN", 1l, "ERP"));
+        List<PermissionDO> list = permissionDao.getUserPermission("ADMIN", 1l, "ERP");
+
+        assertNotNull(list);
+
+        System.out.println("test");
     }
+
 }
