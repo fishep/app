@@ -16,6 +16,12 @@ public class PermissionDTOAssembler {
     }
 
     public String[] toPermissionStrings(Permission[] permissions) {
-        return null;
+        String[] s = new String[permissions.length];
+
+        for (int i = 0; i < s.length; i++) {
+            s[i] = permissions[i].getName().getValue();
+        }
+
+        return s;
     }
 }

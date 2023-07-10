@@ -10,6 +10,8 @@ import com.fishep.permission.infrastructure.mapper.UserRoleMapper;
 import com.fishep.permission.type.PermissionId;
 import com.github.yulichang.wrapper.MPJLambdaWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
@@ -20,7 +22,9 @@ import java.util.List;
  * @Date 2023/7/7 10:17
  * @Desc
  **/
+@Primary
 @Component
+@Qualifier("PermissionDaoMybatisPlusImpl")
 public class PermissionDaoMybatisPlusImpl implements PermissionDao {
 
     @Autowired

@@ -83,7 +83,7 @@ class PermissionDaoMybatisPlusImplTest {
     @Test
     @Order(5)
     void getUserPermission() {
-        //
+        // @TODO 装配有问题，测不了
 //        assertNotNull(permissionDao.getUserPermission("ADMIN", 1l, "ERP"));
     }
 }

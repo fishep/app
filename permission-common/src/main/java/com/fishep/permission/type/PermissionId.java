@@ -8,4 +8,10 @@ import com.fishep.common.type.Id;
  * @Desc
  **/
 public class PermissionId extends Id {
+    public PermissionId(Long value) {
+        super(value);
+    }
+
+    public PermissionId() {
+    }
 }

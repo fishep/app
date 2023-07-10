@@ -2,6 +2,7 @@ package com.fishep.permission.application.service.impl;
 
 import com.fishep.common.context.GuardContext;
 import com.fishep.common.context.UserContext;
+import com.fishep.common.exception.ServiceException;
 import com.fishep.common.type.Guard;
 import com.fishep.permission.application.assembler.PermissionDTOAssembler;
 import com.fishep.permission.application.dto.PermissionDTO;
@@ -9,6 +10,7 @@ import com.fishep.permission.application.dto.UserDTO;
 import com.fishep.permission.application.service.PermissionService;
 import com.fishep.permission.domain.entity.Permission;
 import com.fishep.permission.domain.repository.PermissionRepository;
+import com.fishep.permission.type.Message;
 import com.fishep.user.type.UserId;
 import com.fishep.user.type.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +35,11 @@ public class PermissionServiceImpl implements PermissionService {
         Guard guard = GuardContext.getCurrentGuard();
         UserContext.User user = UserContext.getCurrentUser();
 
-        Permission[] permissions = permissionRepository.find(UserType.valueOf(user.getType()), new UserId(user.getId()), guard);
+        if (guard == null || user == null) {
+            throw new ServiceException(Message.__(Message.CONTEXT_IS_NULL));
+        }
+
+        Permission[] permissions = permissionRepository.findUserPermissions(UserType.valueOf(user.getType()), new UserId(user.getId()), guard);
         String[] ps = permissionDTOAssembler.toPermissionStrings(permissions);
 
         return ps;
@@ -41,7 +47,7 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     public PermissionDTO[] userPermissions(UserDTO userDTO) {
-        Permission[] permissions = permissionRepository.find(userDTO.getUserType(), userDTO.getUserId(), userDTO.getGuard());
+        Permission[] permissions = permissionRepository.findUserPermissions(userDTO.getUserType(), userDTO.getUserId(), userDTO.getGuard());
 
         return permissionDTOAssembler.toPermissionDTOs(permissions);
     }

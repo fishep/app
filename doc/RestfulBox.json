@@ -246,7 +246,7 @@
       {
         "enabled": true,
         "key": "Authorization",
-        "value": "Bearer ver:1 guard:ERP type:ADMIN id:1 name:test"
+        "value": "Bearer ver:1 guard:ERP type:ADMIN id:1 name:root"
       },
       {
         "enabled": true,

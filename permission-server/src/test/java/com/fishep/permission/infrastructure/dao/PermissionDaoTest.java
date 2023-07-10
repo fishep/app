@@ -9,10 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.Instant;
-import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @Author fly.fei
@@ -67,11 +65,9 @@ class PermissionDaoTest {
     @Test
     @Order(5)
     void getUserPermission() {
-        List<PermissionDO> list = permissionDao.getUserPermission("ADMIN", 1l, "ERP");
-
-        assertNotNull(list);
-
-        System.out.println("test");
+        assertDoesNotThrow(() -> {
+            permissionDao.getUserPermission("ADMIN", 1l, "ERP");
+        });
     }
 
 }

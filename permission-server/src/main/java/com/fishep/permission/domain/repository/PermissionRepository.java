@@ -11,5 +11,5 @@ import com.fishep.user.type.UserType;
  * @Desc
  **/
 public interface PermissionRepository {
-    Permission[] find(UserType userType, UserId userId, Guard guard);
+    Permission[] findUserPermissions(UserType userType, UserId userId, Guard guard);
 }
