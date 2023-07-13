@@ -20,4 +20,6 @@ public interface PermissionDao {
     PermissionDO select(PermissionDO p);
 
     List<PermissionDO> getUserPermission(String userType, Long userId, String guard);
+
+    Boolean setUserPermission(String userType, Long userId, String guard, List<PermissionDO> permissionDOList);
 }

@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import com.fishep.common.type.Locale;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * @Author fly.fei
  * @Date 2023/7/7 10:20
@@ -13,7 +15,7 @@ import lombok.Data;
  **/
 @Data
 @TableName("permissions")
-public class PermissionDO {
+public class PermissionDO implements Serializable {
     private Long id;
 
     private String name;

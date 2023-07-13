@@ -2,10 +2,13 @@ package com.fishep.permission.infrastructure.dao.impl;
 
 import com.fishep.permission.infrastructure.dao.PermissionDao;
 import com.fishep.permission.infrastructure.data.PermissionDO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Author fly.fei
@@ -15,6 +18,9 @@ import java.util.List;
 @Component
 @Qualifier("PermissionDaoRedisImpl")
 public class PermissionDaoRedisImpl implements PermissionDao {
+
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     // @TODO
 
@@ -40,6 +46,17 @@ public class PermissionDaoRedisImpl implements PermissionDao {
 
     @Override
     public List<PermissionDO> getUserPermission(String userType, Long userId, String guard) {
-        return null;
+        String key = userType + "_" + userId + "_" + guard;
+        List<PermissionDO> list = (List<PermissionDO>) redisTemplate.opsForValue().get(key);
+
+        return list;
+    }
+
+    @Override
+    public Boolean setUserPermission(String userType, Long userId, String guard, List<PermissionDO> permissionDOList) {
+        String key = userType + "_" + userId + "_" + guard;
+        redisTemplate.opsForValue().set(key, permissionDOList, 60, TimeUnit.MINUTES);
+
+        return Boolean.TRUE;
     }
 }

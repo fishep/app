@@ -35,10 +35,11 @@ public class PermissionRepositoryImpl implements PermissionRepository {
 
     @Override
     public Permission[] findUserPermissions(UserType userType, UserId userId, Guard guard) {
-
-        // @TODO 缓存
-
-        List<PermissionDO> pdoList = dbDao.getUserPermission(userType.name(), userId.getValue(), guard.name());
+        List<PermissionDO> pdoList = redisDao.getUserPermission(userType.name(), userId.getValue(), guard.name());
+        if (pdoList == null) {
+            pdoList = dbDao.getUserPermission(userType.name(), userId.getValue(), guard.name());
+            redisDao.setUserPermission(userType.name(), userId.getValue(), guard.name(), pdoList);
+        }
 
         return assembler.toPermissionArray(pdoList);
     }

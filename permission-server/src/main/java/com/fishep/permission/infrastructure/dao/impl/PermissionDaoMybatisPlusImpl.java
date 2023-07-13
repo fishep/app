@@ -109,4 +109,9 @@ public class PermissionDaoMybatisPlusImpl implements PermissionDao {
 
         return userRoleMapper.selectJoinList(PermissionDO.class, wrapper);
     }
+
+    @Override
+    public Boolean setUserPermission(String userType, Long userId, String guard, List<PermissionDO> permissionDOList) {
+        return null;
+    }
 }
